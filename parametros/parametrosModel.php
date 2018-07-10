@@ -108,12 +108,37 @@ class parametrosModel extends Model {
     }
 
     function aprendices() {
-        $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
-                . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
-                . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+        $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
                 . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
                 . "WHERE roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre");
-        return $sql->fetchall();
+        $res = $sql->fetchall();
+        $array = array();
+        for ($i = 0; $i < count($res); $i++) {
+            $e = array();
+            $e['usuId'] = $res[$i]['usuId'];
+            $e['usuTipoDocu'] = $res[$i]['usuTipoDocu'];
+            $e['usuDocumento'] = $res[$i]['usuDocumento'];
+            $e['usuNombre'] = $res[$i]['usuNombre'];
+            $e['usuApellido'] = $res[$i]['usuApellido'];
+            $e['usuCorreo'] = $res[$i]['usuCorreo'];
+            $e['usuTelefono'] = $res[$i]['usuTelefono'];
+            $fichas = $this->_db->query("SELECT fichas.fchaNumero FROM detalleaprendiz "
+                    . "INNER JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+                    . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                    . "WHERE usuarios.usuId='" . $res[$i]['usuId'] . "'");
+            $resfichas = $fichas->fetchall();
+            $con = '';
+            for ($j = 0; $j < count($resfichas); $j++) {
+                if ($j == 0) {
+                    $con = $con . $resfichas[$j]['fchaNumero'];
+                } else {
+                    $con = $con . '-' . $resfichas[$j]['fchaNumero'];
+                }
+            }
+            $e['fichas'] = $con;
+            array_push($array, $e);
+        }
+        return $array;
     }
 
     function bajafichas($arg = false) {

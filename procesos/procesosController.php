@@ -18,6 +18,38 @@ class procesosController extends Controller {
         parent::__construct("procesos");
     }
 
+    public function setinasistencia() {
+        $data = $this->loadModel('procesos');
+        $sql = $data->setasistencia();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('procesos/inasistencia');
+        exit();
+    }
+
+    public function listadoaprendicesinasistencia() {
+        $data = $this->loadModel('procesos');
+        $this->_view->ficha = $_POST['ficha'];
+        $this->_view->usuarios = $data->listaaprendicesinasistencia();
+        $this->_view->renderizar('usuariosinasistencia', 'blank');
+    }
+
+    public function inasistencia() {
+        $data = $this->loadModel('parametros');
+        $this->_view->instituciones = $data->instituciones();
+        $this->_view->programas = $data->programas();
+        $layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Inasistencia';
+        $this->_view->metodo = "Procesos";
+        $this->_view->metodoaccion = 'Inasistencia';
+        $this->_view->renderizar('inasistencia', 'vidar', $layout);
+    }
+
     public function modalarchivos() {
         $this->_view->ficha = $_POST['ficha'];
         $this->_view->renderizar('archivos', 'blank');
@@ -87,7 +119,7 @@ class procesosController extends Controller {
 
     public function tablaaprendicesasignar() {
         $data = $this->loadModel('procesos');
-        $this->_view->usuarios = $data->listaaprendices();
+        $this->_view->usuarios = $data->listaaprendicesasignar();
         $this->_view->ficha = $_POST['ficha'];
         $this->_view->renderizar('cargaaprendicesasignar', 'blank');
     }

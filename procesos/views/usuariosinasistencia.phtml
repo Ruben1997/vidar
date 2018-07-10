@@ -1,0 +1,57 @@
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<form id="formAsignar" method="post" action="<?php echo RUTA_URL . 'procesos/setinasistencia'; ?>">
+    <input type="hidden" name="txtFichaCodigo" value="<?php echo $this->ficha; ?>">
+    <button id="btnGuardarUsuariosAsignar" style="margin-top: 20px; margin-bottom: 20px;" type="button" class="btn btn-primary">Guardar</button>
+    <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th class="text-center">Asistio</th>
+                <th class="text-center">No Asistio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                    <?php if (!empty($this->usuarios[$i]['asistencia'])) { ?>
+                        <?php if ($this->usuarios[$i]['asistencia'] == 'A') { ?>
+                            <td class="text-center">
+                                <input type="hidden" name="txtIdAsistencia[]" value="<?php echo $this->usuarios[$i]['idasis']; ?>">
+                                <input checked data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-A'; ?>">
+                            </td>
+                            <td class="text-center">
+                                <input data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-I'; ?>">
+                            </td>
+                        <?php } else if ($this->usuarios[$i]['asistencia'] == 'I') { ?>
+                            <td class="text-center">
+                                <input type="hidden" name="txtIdAsistencia[]" value="<?php echo $this->usuarios[$i]['idasis']; ?>">
+                                <input data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-A'; ?>">
+                            </td>
+                            <td class="text-center">
+                                <input checked data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-I'; ?>">
+                            </td>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <td class="text-center">
+                            <input type="hidden" name="txtIdAsistencia[]">
+                            <input data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-A'; ?>">
+                        </td>
+                        <td class="text-center">
+                            <input data-id="<?php echo $i; ?>" id="chek2" class="seleccion<?php echo $i; ?>" name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId'] . '-I'; ?>">
+                        </td>
+                    <?php } ?>
+                </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+</form>
+

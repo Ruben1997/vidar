@@ -1,5 +1,22 @@
 var RUTA_URL = 'http://localhost/vidar/';
 $(document).ready(function () {
+    $(document).on('change', '#chek2', function () {
+        var id = $(this).attr('data-id');
+        $('.seleccion' + id).prop('checked', false);
+        $(this).prop('checked', true);
+    });
+    $(document).on('click', '#btnbuscaraprendicesInsasistencia', function () {
+        var ficha = $('#selFicha').val();
+        var data = {
+            'ficha': ficha
+        };
+        if (ficha != '') {
+            cargadivconsulta('cargarTablaAprendicesInsasistencia', RUTA_URL + 'procesos/listadoaprendicesinasistencia/', data);
+        } else {
+            alert('Por favor seleccione una ficha');
+            return;
+        }
+    });
     $(document).on('click', '#btnArchivoPlano', function () {
         $('#modalAsignar').modal('show');
         var data = {
