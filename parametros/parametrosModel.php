@@ -18,6 +18,63 @@ class parametrosModel extends Model {
         parent::__construct();
     }
 
+    function tablaaprendices() {
+        if ($_POST) {
+            if ((isset($_POST["ficha"]) && isset($_POST["programa"]) && isset($_POST["institucion"])) && ($_POST["ficha"] != "" || $_POST["programa"] != "" || $_POST["institucion"] != "")) {
+                $sql = "SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
+                        . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                        . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+                        . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                        . "WHERE ";
+                if (!empty($_POST['ficha'])) {
+                    $sql .= "fichas.fchaId='" . $_POST['ficha'] . "' ";
+                }
+                if (!empty($_POST['programa'])) {
+                    if (!empty($_POST['ficha'])) {
+                        $sql .= "AND ";
+                    }
+                    $sql .= "fichas.fchaIdPrograma='" . $_POST['programa'] . "' ";
+                }
+                if (!empty($_POST['institucion'])) {
+                    if (!empty($_POST['ficha']) || !empty($_POST['programa'])) {
+                        $sql .= "AND ";
+                    }
+                    $sql .= "fichas.fchaIdInstitucion='" . $_POST['institucion'] . "'";
+                }
+
+                $sql .= "AND roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre";
+            } else {
+                $sql = "SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
+                        . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                        . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+                        . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                        . "WHERE roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre";
+            }
+            $datos = $this->_db->query($sql);
+            return $datos->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function cargaficha() {
+        if ($_POST) {
+            if (!empty($_POST['institucion']) && !empty($_POST['programa'])) {
+                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                        . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
+            } else if (!empty($_POST['institucion']) && empty($_POST['programa'])) {
+                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                        . "WHERE fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
+            } else if (!empty($_POST['programa']) && empty($_POST['institucion'])) {
+                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                        . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaEstado='A'");
+            }
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
     function oneusuario() {
         if ($_POST) {
             $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
@@ -43,7 +100,7 @@ class parametrosModel extends Model {
 
     function bajaaprendices($arg) {
         if ($arg) {
-            $sql = $this->_db->exec("DELETE FROM usuarios WHERE usuarios.usuId='".$arg."'");
+            $sql = $this->_db->exec("DELETE FROM usuarios WHERE usuarios.usuId='" . $arg . "'");
             return $sql;
         } else {
             return 0;

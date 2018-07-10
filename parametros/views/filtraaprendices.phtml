@@ -1,0 +1,57 @@
+<table class="table-bordered table table-condensed table-responsive table-hover" id="example2">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tipo</th>
+            <th>Documento</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Ficha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+            <tr>
+                <td><?php echo $i + 1; ?></td>
+                <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                <td><?php echo $this->usuarios[$i]['usuCorreo']; ?></td>
+                <td><?php echo $this->usuarios[$i]['usuTelefono']; ?></td>
+                <td>
+                    <?php if (!empty($this->usuarios[$i]['fchaNumero'])) { ?>
+                        <?php echo $this->usuarios[$i]['fchaNumero']; ?>
+                    <?php } else { ?>
+                        No asignada
+                    <?php } ?>
+                </td>
+                <td class="text-center" style="width: 90px;">
+                    <button value="<?php echo $this->usuarios[$i]['usuId']; ?>" class="btn btn-warning" id="btnEditarAprendices">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button data-id="<?php echo $this->usuarios[$i]['usuId']; ?>" data-nom="<?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'] . ' ' . $this->usuarios[$i]['usuApellido'])); ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalAprendices">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        <?php endfor; ?>
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#example2').dataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            oLanguage: {
+                "sSearch": "Buscar:"
+            }
+        });
+    });
+</script>
+

@@ -1,11 +1,20 @@
 var RUTA_URL = 'http://localhost/vidar/';
 $(document).ready(function () {
+    $(document).on('click', '#btnbuscaraprendices', function () {
+        var data = {
+            'ficha': $('#selFicha').val(),
+            'programa': $('#selPrograma').val(),
+            'institucion': $('#selInstitucion').val()
+        };
+        cargadivconsulta('cargarTablaAprendices', RUTA_URL + 'parametros/tablaaprendices/', data);
+    });
     $(document).on('change', '#selPrograma', function () {
         var data = {
             'institucion': $('#selInstitucion').val(),
             'programa': $(this).val()
 
         };
+        cargadivconsulta('cargafichas', RUTA_URL + 'parametros/cargarfichas/', data);
     });
     $(document).on('click', '#btnAgregarAprendices', function () {
         var data = {

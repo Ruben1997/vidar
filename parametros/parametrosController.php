@@ -18,6 +18,18 @@ class parametrosController extends Controller {
         parent::__construct("parametros");
     }
 
+    public function tablaaprendices() {
+        $data = $this->loadModel('parametros');
+        $this->_view->usuarios = $data->tablaaprendices();
+        $this->_view->renderizar('filtraaprendices', 'blank');
+    }
+
+    public function cargarfichas() {
+        $data = $this->loadModel('parametros');
+        $this->_view->fichas = $data->cargaficha();
+        $this->_view->renderizar('cargafichas', 'blank');
+    }
+
     public function setaprendices() {
         $data = $this->loadModel('parametros');
         $sql = $data->setaprendiz();
