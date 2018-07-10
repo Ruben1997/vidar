@@ -25,7 +25,7 @@
                             <label>
                                 Institucion
                             </label>
-                            <select name="txtInstitucion" class="form-control">
+                            <select id="selInstitucion" class="form-control">
                                 <option disabled selected>--Seleccione--</option>
                                 <?php for ($i = 0; $i < count($this->instituciones); $i++) { ?>
                                     <option value="<?php echo $this->instituciones[$i]['instId']; ?>"><?php echo $this->instituciones[$i]['instNombre']; ?></option>
@@ -36,7 +36,7 @@
                             <label>
                                 Programa
                             </label>
-                            <select id="selPrograma" class="form-control" name="txtPrograma">
+                            <select id="selPrograma" class="form-control">
                                 <option disabled selected>--Seleccione--</option>
                                 <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
                                     <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>

@@ -1,5 +1,12 @@
 var RUTA_URL = 'http://localhost/vidar/';
 $(document).ready(function () {
+    $(document).on('change', '#selPrograma', function () {
+        var data = {
+            'institucion': $('#selInstitucion').val(),
+            'programa': $(this).val()
+
+        };
+    });
     $(document).on('click', '#btnAgregarAprendices', function () {
         var data = {
             'id': ''
