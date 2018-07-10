@@ -1,0 +1,10 @@
+<form name="importa" method="post" action="<?php echo RUTA_URL . 'procesos/setarchivoplano'; ?>" enctype="multipart/form-data" >
+    <input type="hidden" name="txtFicha" value="<?php echo $this->ficha; ?>">
+    <div class="form-group">
+        <label>
+            Seleccione archivo
+        </label>
+        <input type="file" data-buttonText="Seleccione archivo" name="excel" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-primary" value="guardar">&nbsp;<button class="btn btn-danger" data-dismiss='modal' type="button">Cerrar</button>
+</form>

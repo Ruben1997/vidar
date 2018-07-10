@@ -1,0 +1,79 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nuestro voluntariado
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid" id="vista">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Asignar Aprendices</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                Institucion
+                            </label>
+                            <select id="selInstitucion" class="form-control">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->instituciones); $i++) { ?>
+                                    <option value="<?php echo $this->instituciones[$i]['instId']; ?>"><?php echo $this->instituciones[$i]['instNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Programa
+                            </label>
+                            <select id="selPrograma" class="form-control">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
+                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Ficha
+                            </label>
+                            <div id="cargafichas">
+                                <select class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="btnbuscaraprendicesAsignar" style="margin-top: 25px;" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px;" id="cargarTablaAprendicesAsignar" class="table-responsive">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" tabindex="-1" id="modalAsignar" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Mensaje de confirmacion<button class="close" data-dismiss="modal">&times;</button></div>
+            <div class="modal-body">
+                <div id="contenidoModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

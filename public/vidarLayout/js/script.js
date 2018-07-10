@@ -1,5 +1,27 @@
 var RUTA_URL = 'http://localhost/vidar/';
 $(document).ready(function () {
+    $(document).on('click', '#btnArchivoPlano', function () {
+        $('#modalAsignar').modal('show');
+        var data = {
+            'ficha': $('#numFicha').val()
+        };
+        cargadivconsulta('contenidoModal', RUTA_URL + 'procesos/modalarchivos/', data);
+    });
+    $(document).on('click', '#btnGuardarUsuariosAsignar', function () {
+        var ficha = $('#selFicha').val();
+        if (ficha != '') {
+            $('#formAsignar').submit();
+        } else {
+            alert('Seleccione una ficha');
+            return;
+        }
+    });
+    $(document).on('click', '#btnbuscaraprendicesAsignar', function () {
+        var data = {
+            'ficha': $('#selFicha').val()
+        };
+        cargadivconsulta('cargarTablaAprendicesAsignar', RUTA_URL + 'procesos/tablaaprendicesasignar/', data);
+    });
     $(document).on('click', '#btnbuscaraprendices', function () {
         var data = {
             'ficha': $('#selFicha').val(),
