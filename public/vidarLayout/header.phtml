@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='icon' href='<?php echo COMMON; ?>img/icologo.ico'>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title><?php echo $this->titulo; ?></title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <script src="<?php echo COMMON; ?>js/jquery.js"></script>
+        <link rel="stylesheet" href="<?php echo COMMON; ?>bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>Ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>morris.js/morris.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>jvectormap/jquery-jvectormap.css">
+        <link href="<?php echo COMMON; ?>css/jicss.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>bootstrap-daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="<?php echo COMMON; ?>plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+        <link href='<?php echo COMMON; ?>formvalidation/dist/css/bootstrapValidator.css' rel='stylesheet'>
+        <script src='<?php echo COMMON; ?>formvalidation/dist/js/bootstrapValidator.js'></script>
+        <script src='<?php echo COMMON; ?>formvalidation/dist/js/language/es_CL.js'></script>
+    </head>
+    <style>
+        .loader {
+            opacity: 0.3;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden !important;
+            z-index: 99999;
+        }
+
+        .loader-img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="#" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini">HCSV</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><?php echo NAME_APP; ?></span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs"><?php echo Session::get('usuario'); ?></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="user-footer">
+                                        <div class="pull-right">
+                                            <a href="<?php echo RUTA_URL . 'inicio/cerrarsesion'; ?>" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">Menu Navegacion</li>
+                        <?php $con = 0; ?>
+                        <?php for ($i = 0; $i < count($_layoutParams['menu']); $i++) { ?>
+                            <?php if (!empty($_layoutParams['menu'][$i]['sub'])) { ?>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="<?php echo $_layoutParams['menu'][$i]['icono']; ?>"></i>
+                                        <span><?php echo $_layoutParams['menu'][$i]['titulo']; ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <?php for ($j = 0; $j < count($_layoutParams['menu'][$i]['sub']); $j++) { ?>
+                                            <?php $con++; ?>
+                                            <li class="items" id="item<?php echo $con; ?>"><a data-title="<?php echo $_layoutParams['menu'][$i]['sub'][$j]['title']; ?>" data-i="<?php echo $con; ?>" class="metodoEnlace" href="<?php echo $_layoutParams['menu'][$i]['sub'][$j]['enlace']; ?>"><i class="<?php echo $_layoutParams['menu'][$i]['sub'][$j]['icono']; ?>"></i> <?php echo $_layoutParams['menu'][$i]['sub'][$j]['titulo']; ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </li>
+                            <?php } else { ?>
+                                <?php $con++; ?>
+                                <li class="items" id="item<?php echo $con; ?>">
+                                    <a data-title='<?php echo $_layoutParams['menu'][$i]['title']; ?>' data-i="<?php echo $con; ?>" class="metodoEnlace" href="<?php echo $_layoutParams['menu'][$i]['enlace']; ?>">
+                                        <i class="<?php echo $_layoutParams['menu'][$i]['icono']; ?>"></i> <span><?php echo $_layoutParams['menu'][$i]['titulo']; ?></span>
+                                    </a>
+                                </li> 
+                            <?php } ?>
+                        <?php } ?> 
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <div id="cargando" class="loader hidden">
+                <div class="loader-img"></div>
+            </div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <?php
+                if (Session::get('mensaje') != '') {
+                    ?> <div id="mensaje" class="row"> <div class="col-md-4"></div>
+                        <div class="col-md-4 alert <?php echo Session::get('tipomensaje'); ?> alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong><?php echo Session::get('mensaje'); ?></strong></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <?php
+                    Session::set('mensaje', '');
+                    Session::set('tipomensaje', '');
+                }
+                ?>
+                <div id="cargarPagina">

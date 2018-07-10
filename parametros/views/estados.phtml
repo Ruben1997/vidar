@@ -1,0 +1,7 @@
+<select class="form-control" name="txtEstado" id="selEstado">
+    <option disabled selected>--Seleccione--</option>
+    <?php for ($i = 0; $i < count($this->estados); $i++) { ?>
+        <option value="<?php echo $this->estados[$i]['id']; ?>"><?php echo $this->estados[$i]['estadonombre']; ?></option>
+    <?php } ?>
+</select>
+

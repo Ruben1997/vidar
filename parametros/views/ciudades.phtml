@@ -1,0 +1,6 @@
+<select class="form-control" name="txtCiudad">
+    <option disabled selected>--Seleccione--</option>
+    <?php for ($i = 0; $i < count($this->ciudades); $i++) { ?>
+        <option value="<?php echo $this->ciudades[$i]['id']; ?>"><?php echo $this->ciudades[$i]['ciudad']; ?></option>
+    <?php } ?>
+</select>

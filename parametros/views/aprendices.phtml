@@ -1,0 +1,138 @@
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Nuestro voluntariado
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid" id="vista">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Listado Aprendices</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                Institucion
+                            </label>
+                            <select name="txtInstitucion" class="form-control">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->instituciones); $i++) { ?>
+                                    <option value="<?php echo $this->instituciones[$i]['instId']; ?>"><?php echo $this->instituciones[$i]['instNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Programa
+                            </label>
+                            <select id="selPrograma" class="form-control" name="txtPrograma">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
+                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Ficha
+                            </label>
+                            <div id="cargafichas">
+                                <select class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button style="margin-top: 25px;" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    <button style="margin-bottom: 15px; margin-top: 30px;" type="button" id="btnAgregarAprendices" class="btn btn-primary">Agregar</button>
+                    <div class="table-responsive">
+                        <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tipo</th>
+                                    <th>Documento</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Correo</th>
+                                    <th>Telefono</th>
+                                    <th>Ficha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td>
+                                        <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                                        <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                                        <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                                        <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                                        <td><?php echo $this->usuarios[$i]['usuCorreo']; ?></td>
+                                        <td><?php echo $this->usuarios[$i]['usuTelefono']; ?></td>
+                                        <td>
+                                            <?php if (!empty($this->usuarios[$i]['fchaNumero'])) { ?>
+                                                <?php echo $this->usuarios[$i]['fchaNumero']; ?>
+                                            <?php } else { ?>
+                                                No asignada
+                                            <?php } ?>
+                                        </td>
+                                        <td class="text-center" style="width: 90px;">
+                                            <button value="<?php echo $this->usuarios[$i]['usuId']; ?>" class="btn btn-warning" id="btnEditarAprendices">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                            <button data-id="<?php echo $this->usuarios[$i]['usuId']; ?>" data-nom="<?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'] . ' ' . $this->usuarios[$i]['usuApellido'])); ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalAprendices">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endfor; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalAprendices" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">Mensaje de confirmacion<button class="close" data-dismiss="modal">&times;</button></div>
+                <div class="modal-body">
+                    <h3>¿Esta seguro que desea eliminar este aprendiz?</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-warning" id="enviar">Si</a>
+                    <a href="#" class="btn btn-danger" data-dismiss="modal">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var RUTA_URL = 'http://localhost/vidar/';
+    $(document).ready(function () {
+        $('#modalAprendices').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipent = button.data('id')
+            var nom = button.data('nom')
+            var modal = $(this);
+            modal.find('h3').text('¿Esta seguro que desea eliminar este aprendiz: ' + nom + '?');
+            modal.find('#enviar').attr('href', RUTA_URL + 'parametros/bajaaprendices/' + recipent);
+        });
+    });
+</script>
+

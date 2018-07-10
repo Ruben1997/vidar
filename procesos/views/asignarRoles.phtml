@@ -1,0 +1,15 @@
+<form method="post" action="<?php echo RUTA_URL . 'procesos/setrol'; ?>">
+    <input type="hidden" name="txtCodigo" value="<?php echo $this->id; ?>">
+    <div class="form-group">
+        Seleccione un rol
+        <select name="txtRol" class="form-control">
+            <option disabled selected>--Seleccione--</option>
+            <?php for ($i = 0; $i < count($this->roles); $i++) { ?>
+                <option value="<?php echo $this->roles[$i]['rolId']; ?>"><?php echo $this->roles[$i]['rolNombre']; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Guardar">&nbsp;<button class="btn btn-danger" data-dismiss="modal">Cerrar</button>  
+    </div>
+</form>

@@ -1,0 +1,94 @@
+<!-- Content Header (Page header) -->
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<section class="content-header">
+    <h1>
+        Nuestro voluntariado
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid" id="vista">
+        <div class="row">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Instituciones</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <button style="margin-bottom: 15px;" type="button" id="btnAgregarInstituciones" class="btn btn-primary">Agregar</button>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Direccion</th>
+                                    <th>Nit</th>
+                                    <th>Pais</th>
+                                    <th>Estado</th>
+                                    <th>Ciudad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i = 0; $i < count($this->instituciones); $i++): ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td> 
+                                        <td><?php echo ucwords(strtolower($this->instituciones[$i]['instNombre'])); ?></td>
+                                        <td><?php echo $this->instituciones[$i]['instDireccion']; ?></td>
+                                        <td><?php echo $this->instituciones[$i]['instNit']; ?></td>
+                                        <td><?php echo $this->instituciones[$i]['paisnombre']; ?></td>
+                                        <td><?php echo $this->instituciones[$i]['estadonombre']; ?></td>
+                                        <td><?php echo $this->instituciones[$i]['ciudad']; ?></td>
+                                        <td class="text-center">
+                                            <button value="<?php echo $this->instituciones[$i]['instId']; ?>" class="btn btn-warning" id="btnEditarinst">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                            <button data-id="<?php echo $this->instituciones[$i]['instId']; ?>" data-nom="<?php echo ucwords(strtolower($this->instituciones[$i]['instNombre'])); ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalInstituciones">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endfor; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalInstituciones" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">Mensaje de confirmacion<button class="close" data-dismiss="modal">&times;</button></div>
+                <div class="modal-body">
+                    <h3>¿Esta seguro que desea eliminar esta actividad?</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-warning" id="enviar">Si</a>
+                    <a href="#" class="btn btn-danger" data-dismiss="modal">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var RUTA_URL = 'http://localhost/vidar/';
+    $(document).ready(function () {
+        $('#modalInstituciones').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipent = button.data('id')
+            var nom = button.data('nom')
+            var modal = $(this);
+            modal.find('h3').text('¿Esta seguro que desea eliminar esta institucion: ' + nom + '?');
+            modal.find('#enviar').attr('href', RUTA_URL + 'parametros/bajainstituciones/' + recipent);
+        });
+    });
+</script>
+

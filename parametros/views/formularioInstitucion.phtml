@@ -1,0 +1,77 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"><?php echo $this->accion; ?></h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" method="post" action="<?php echo RUTA_URL . 'parametros/setinstitucion'; ?>">
+            <div class="box-body">
+                <input type="hidden" name="txtCodigo" value="<?php echo $this->datos[0]['instId']; ?>">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre</label>
+                    <input name="txtNombre" type="text" value="<?php echo $this->datos[0]['instNombre']; ?>" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nit</label>
+                    <input name="txtNit" type="text" value="<?php echo $this->datos[0]['instNit']; ?>" class="form-control" id="exampleInputPassword1" placeholder="Nit">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Direccion</label>
+                    <input name="txtDireccion" type="text" value="<?php echo $this->datos[0]['instDireccion']; ?>" class="form-control" id="exampleInputPassword1" placeholder="Direccion">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Pais</label>
+                    <select class="form-control" name="txtPais" id="selPais">
+                        <option disabled selected>--Seleccione--</option>
+                        <?php for ($i = 0; $i < count($this->paises); $i++) { ?>
+                            <?php if ($this->paises[$i]['id'] == $this->datos[0]['pa']) { ?>
+                                <option selected value="<?php echo $this->paises[$i]['id']; ?>"><?php echo $this->paises[$i]['paisnombre']; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $this->paises[$i]['id']; ?>"><?php echo $this->paises[$i]['paisnombre']; ?></option>
+                            <?php } ?>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Estado</label>
+                    <div id="divestado">
+                        <select name="txtEstado" class="form-control">
+                            <option disabled selected>--Seleccione--</option>
+                            <?php for ($i = 0; $i < count($this->estados); $i++) { ?>
+                                <?php if ($this->estados[$i]['id'] == $this->datos[0]['est']) { ?>
+                                    <option value="<?php echo $this->estados[$i]['id']; ?>" selected><?php echo $this->estados[$i]['estadonombre']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $this->estados[$i]['id']; ?>"><?php echo $this->estados[$i]['estadonombre']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Ciudad</label>
+                    <div id="divciudad">
+                        <select name="txtCiudad" class="form-control">
+                            <option disabled selected>--Seleccione--</option>
+                            <?php for ($i = 0; $i < count($this->ciudades); $i++) { ?>
+                                <?php if ($this->ciudades[$i]['id'] == $this->datos[0]['instCiudad']) { ?>
+                                    <option value="<?php echo $this->ciudades[$i]['id']; ?>" selected><?php echo $this->ciudades[$i]['ciudad']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $this->ciudades[$i]['id']; ?>"><?php echo $this->ciudades[$i]['ciudad']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="<?php echo RUTA_URL . 'parametros/institucion'; ?>" class="btn btn-danger">volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-3"></div>
