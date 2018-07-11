@@ -18,6 +18,66 @@ class parametrosController extends Controller {
         parent::__construct("parametros");
     }
 
+    public function bajactas($argum = false) {
+        $data = $this->loadModel('parametros');
+        $sql = $data->bajaactas($argum);
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/actasequipo');
+        exit();
+    }
+
+    public function formularioactas() {
+        $data = $this->loadModel('parametros');
+        $this->_view->instituciones = $data->instituciones();
+        $this->_view->programas = $data->programas();
+        if (!empty($_POST['id'])) {
+            $this->_view->datos = $data->oneacta();
+            $datos = $data->oneacta();
+            $this->_view->fichas = $data->fichasactas($datos[0]['proId'], $datos[0]['instId']);
+            $this->_view->accion = 'Editar Actas';
+        } else {
+            $this->_view->fichas = array();
+            $this->_view->datos = array(7);
+            $this->_view->accion = 'Agregar Actas';
+        }
+        $this->_view->renderizar('formularioactas', 'blank');
+    }
+
+    public function setactas() {
+        $data = $this->loadModel('parametros');
+        if ($_FILES['txtArchivoActa']['error'] != 4) {
+            $nombrearchivo = htmlentities($_FILES['txtArchivoActa']['name']);
+            $destino = ROOT . 'public' . DS . 'vidarLayout' . DS . 'files' . DS . html_entity_decode($nombrearchivo);
+            move_uploaded_file($_FILES['txtArchivoActa']['tmp_name'], $destino);
+        }
+        $sql = $data->setacta();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/actasequipo');
+        exit();
+    }
+
+    public function actasequipo() {
+        $data = $this->loadModel('parametros');
+        @$layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Actas';
+        $this->_view->metodo = "Parametros";
+        $this->_view->metodoaccion = 'Actas';
+        $this->_view->actas = $data->actas();
+        $this->_view->renderizar('actas', 'vidar', $layout);
+    }
+
     public function tablaaprendices() {
         $data = $this->loadModel('parametros');
         $this->_view->usuarios = $data->tablaaprendices();

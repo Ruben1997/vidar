@@ -1,4 +1,4 @@
-<select class="form-control" id="selFicha">
+<select class="form-control" name="txtFichasGeneral" id="selFicha">
     <option disabled selected>--Seleccione--</option>
     <?php for ($i = 0; $i < count($this->fichas); $i++) { ?>
         <option value="<?php echo $this->fichas[$i]['fchaId']; ?>"><?php echo $this->fichas[$i]['fchaNumero']; ?></option>

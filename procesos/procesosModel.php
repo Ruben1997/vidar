@@ -17,7 +17,38 @@ class procesosModel extends Model {
     public function __construct() {
         parent::__construct();
     }
-    
+
+    function actadocumento() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT actas.actRuta FROM actas WHERE actas.actId='" . $_POST['acta'] . "'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function actascomite() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT actas.actId, actas.actNumero FROM actas WHERE actas.actIdFicha='" . $_POST['ficha'] . "' AND actas.actEstado='A'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function aprendicescomite() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
+                    . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                    . "INNER JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+                    . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                    . "WHERE roles.rolNombre='Aprendiz' AND fichas.fchaId='" . $_POST['ficha'] . "' ORDER BY usuarios.usuNombre");
+            $res = $sql->fetchall();
+            return $res;
+        } else {
+            return 0;
+        }
+    }
 
     function setasistencia() {
         if ($_POST) {

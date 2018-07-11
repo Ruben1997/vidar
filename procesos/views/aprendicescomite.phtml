@@ -1,0 +1,47 @@
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<form id="formAsignar" method="post" action="<?php echo RUTA_URL . 'procesos/setcomite'; ?>">
+    <button id="btnGuardarUsuariosAsignar" style="margin-top: 20px; margin-bottom: 20px;" type="button" class="btn btn-primary">Guardar</button>
+    <div class="form-group">
+        <label>
+            Seleccione acta
+        </label>
+        <select id="selActa" name="txtActa" class="form-control" style="width:200px; ">
+            <option disabled selected>--Seleccione--</option>
+            <?php for ($i = 0; $i < count($this->actas); $i++) { ?>
+                <option value="<?php echo $this->actas[$i]['actId']; ?>">Acta No <?php echo $this->actas[$i]['actNumero']; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <div id="cargarDocumento" style="margin-bottom: 20px;"></div>
+    <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuCorreo']; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuTelefono']; ?></td>
+                    <td class="text-center">
+                        <input name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId']; ?>">
+                    </td>
+                </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+</form>
+

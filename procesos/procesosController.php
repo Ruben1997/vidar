@@ -18,6 +18,30 @@ class procesosController extends Controller {
         parent::__construct("procesos");
     }
 
+    public function aprendicescomite() {
+        $data = $this->loadModel('procesos');
+        $this->_view->usuarios = $data->aprendicescomite();
+        $this->_view->actas = $data->actascomite();
+        $this->_view->renderizar('aprendicescomite', 'blank');
+    }
+
+    public function mostrardocumento() {
+        $data = $this->loadModel('procesos');
+        $this->_view->acta = $data->actadocumento();
+        $this->_view->renderizar('documento', 'blank');
+    }
+
+    public function solicitarcomite() {
+        $data = $this->loadModel('parametros');
+        $this->_view->instituciones = $data->instituciones();
+        $this->_view->programas = $data->programas();
+        @$layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Comite de evaluacion';
+        $this->_view->metodo = "Procesos";
+        $this->_view->metodoaccion = 'Comite de evaluacion';
+        $this->_view->renderizar('comite', 'vidar', $layout);
+    }
+
     public function setinasistencia() {
         $data = $this->loadModel('procesos');
         $sql = $data->setasistencia();
@@ -43,7 +67,7 @@ class procesosController extends Controller {
         $data = $this->loadModel('parametros');
         $this->_view->instituciones = $data->instituciones();
         $this->_view->programas = $data->programas();
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Inasistencia';
         $this->_view->metodo = "Procesos";
         $this->_view->metodoaccion = 'Inasistencia';

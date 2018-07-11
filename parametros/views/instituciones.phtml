@@ -79,15 +79,16 @@
     </div>
 </section>
 <script>
-    var RUTA_URL = 'http://localhost/vidar/';
     $(document).ready(function () {
+        var host = 'http://localhost/vidar/';
+        //var host = 'https://ganadinero.000webhostapp.com/vidar/';
         $('#modalInstituciones').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var recipent = button.data('id')
             var nom = button.data('nom')
             var modal = $(this);
             modal.find('h3').text('¿Esta seguro que desea eliminar esta institucion: ' + nom + '?');
-            modal.find('#enviar').attr('href', RUTA_URL + 'parametros/bajainstituciones/' + recipent);
+            modal.find('#enviar').attr('href', host + 'parametros/bajainstituciones/' + recipent);
         });
     });
 </script>

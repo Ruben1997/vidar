@@ -17,34 +17,36 @@
         <div class="row">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Fichas</h3>
+                    <h3 class="box-title">Acta de equipo ejecutor</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <button style="margin-bottom: 15px;" type="button" id="btnAgregarFichas" class="btn btn-primary">Agregar</button>
+                    <button style="margin-bottom: 15px;" type="button" id="btnAgregarActas" class="btn btn-primary">Agregar</button>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="example">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Ficha</th>
-                                    <th>Programa</th>
-                                    <th>Institucion</th>
+                                    <th>Numero</th>
+                                    <th>Fecha</th>
+                                    <th>Acta</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for ($i = 0; $i < count($this->fichas); $i++): ?>
+                                <?php for ($i = 0; $i < count($this->actas); $i++): ?>
                                     <tr>
                                         <td><?php echo $i + 1; ?></td> 
-                                        <td><?php echo $this->fichas[$i]['fchaNumero']; ?></td>
-                                        <td><?php echo ucwords(strtolower($this->fichas[$i]['proNombre'])); ?></td>
-                                        <td><?php echo ucwords(strtolower($this->fichas[$i]['instNombre'])); ?></td>
+                                        <td><?php echo $this->actas[$i]['fchaNumero']; ?></td>
+                                        <td><?php echo $this->actas[$i]['actNumero']; ?></td>
+                                        <td><?php echo $this->actas[$i]['actFecha']; ?></td>
+                                        <td><a href="<?php $this->actas[$i]['actRuta']; ?>" target="_blank">Acta No <?php echo $this->actas[$i]['actNumero']; ?></a></td>
                                         <td class="text-center">
-                                            <button value="<?php echo $this->fichas[$i]['fchaId']; ?>" class="btn btn-warning" id="btnEditarFichas">
+                                            <button value="<?php echo $this->actas[$i]['actId']; ?>" class="btn btn-warning" id="btnEditarActas">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                             </button>
-                                            <button data-id="<?php echo $this->fichas[$i]['fchaId']; ?>" data-nom="<?php echo $this->fichas[$i]['fchaNumero']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalFichas">
+                                            <button data-id="<?php echo $this->actas[$i]['actId']; ?>" data-nom="<?php echo $this->actas[$i]['actNumero']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalActas">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </button>
                                         </td>
@@ -57,12 +59,12 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" id="modalFichas" role="dialog">
+    <div class="modal fade" tabindex="-1" id="modalActas" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">Mensaje de confirmacion<button class="close" data-dismiss="modal">&times;</button></div>
                 <div class="modal-body">
-                    <h3>¿Esta seguro que desea eliminar esta ficha?</h3>
+                    <h3>¿Esta seguro que desea eliminar esta acta?</h3>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-warning" id="enviar">Si</a>
@@ -76,15 +78,17 @@
     $(document).ready(function () {
         var host = 'http://localhost/vidar/';
         //var host = 'https://ganadinero.000webhostapp.com/vidar/';
-        $('#modalFichas').on('show.bs.modal', function (event) {
+        $('#modalActas').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var recipent = button.data('id')
             var nom = button.data('nom')
             var modal = $(this);
-            modal.find('h3').text('¿Esta seguro que desea eliminar esta ficha: ' + nom + '?');
-            modal.find('#enviar').attr('href', host + 'parametros/bajafichas/' + recipent);
+            modal.find('h3').text('¿Esta seguro que desea eliminar esta acta: ' + nom + '?');
+            modal.find('#enviar').attr('href', host + 'parametros/bajactas/' + recipent);
         });
     });
 </script>
+
+
 
 

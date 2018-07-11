@@ -18,6 +18,69 @@ class parametrosModel extends Model {
         parent::__construct();
     }
 
+    function bajaactas($arg = false) {
+        if ($arg) {
+            $sql = $this->_db->exec("UPDATE actas SET actas.actEstado='I' WHERE actas.actId='" . $arg . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function setacta() {
+        if ($_POST) {
+            date_default_timezone_set('America/Bogota');
+            $ano = date('Y');
+            $mes = date('m');
+            $dia = date('d');
+            $fecha = "$ano/$mes/$dia";
+            if ($_FILES['txtArchivoActa']['error'] != 4) {
+                $nombrearchivo = htmlentities($_FILES['txtArchivoActa']['name']);
+                $archivo = RUTA_URL . 'public/vidarLayout/files/' . $nombrearchivo;
+                $sql = $this->_db->exec("INSERT INTO actas(actId, actIdFicha, actNumero, actFecha, actRuta, actEstado) "
+                        . "VALUES ('" . $_POST['txtCodigo'] . "','" . $_POST['txtFichasGeneral'] . "','" . $_POST['txtNumero'] . "','" . $fecha . "','" . $archivo . "','A') "
+                        . "ON DUPLICATE KEY UPDATE actIdFicha='" . $_POST['txtFichasGeneral'] . "', actNumero='" . $_POST['txtNumero'] . "', actRuta='" . $archivo . "'");
+            } else {
+                $sql = $this->_db->exec("INSERT INTO actas(actId, actIdFicha, actNumero, actFecha, actEstado) "
+                        . "VALUES ('" . $_POST['txtCodigo'] . "','" . $_POST['txtFichasGeneral'] . "','" . $_POST['txtNumero'] . "','" . $fecha . "','A') "
+                        . "ON DUPLICATE KEY UPDATE actIdFicha='" . $_POST['txtFichasGeneral'] . "', actNumero='" . $_POST['txtNumero'] . "'");
+            }
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function fichasactas($arg = false, $arg2 = false) {
+        if ($arg && $arg2) {
+            $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                    . "WHERE fichas.fchaIdPrograma='" . $arg . "' AND fichas.fchaIdInstitucion='" . $arg2 . "' AND fichas.fchaEstado='A'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function oneacta() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT actas.actId, actas.actIdFicha, actas.actNumero, actas.actFecha, actas.actRuta, programas.proId, instituciones.instId FROM actas "
+                    . "INNER JOIN fichas ON actas.actIdFicha=fichas.fchaId "
+                    . "INNER JOIN programas ON fichas.fchaIdPrograma=programas.proId "
+                    . "INNER JOIN instituciones ON fichas.fchaIdInstitucion=instituciones.instId "
+                    . "WHERE actas.actId='" . $_POST['id'] . "'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function actas() {
+        $sql = $this->_db->query("SELECT actas.actId, fichas.fchaNumero, actas.actNumero, actas.actFecha, actas.actRuta FROM actas "
+                . "INNER JOIN fichas ON actas.actIdFicha=fichas.fchaId "
+                . "WHERE actas.actEstado='A'");
+        return $sql->fetchall();
+    }
+
     function tablaaprendices() {
         if ($_POST) {
             if ((isset($_POST["ficha"]) && isset($_POST["programa"]) && isset($_POST["institucion"])) && ($_POST["ficha"] != "" || $_POST["programa"] != "" || $_POST["institucion"] != "")) {
