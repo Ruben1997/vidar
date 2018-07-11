@@ -1,0 +1,117 @@
+<!-- Content Header (Page header) -->
+<?php $fecha = date("Y"); ?>
+<section class="content-header">
+    <h1>
+        Nuestro voluntariado
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid" id="vista">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Asignar Aprendices</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                Institucion
+                            </label>
+                            <select id="selInstitucion" class="form-control">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->instituciones); $i++) { ?>
+                                    <option value="<?php echo $this->instituciones[$i]['instId']; ?>"><?php echo $this->instituciones[$i]['instNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Programa
+                            </label>
+                            <select id="selPrograma" class="form-control">
+                                <option disabled selected>--Seleccione--</option>
+                                <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
+                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Ficha
+                            </label>
+                            <div id="cargafichas">
+                                <select class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                Desde
+                            </label>
+                            <div>
+                                <select class="form-control" name="txtFechaI" id="fi">
+                                    <option disabled selected>--Seleccine--</option>
+                                    <option value="<?php echo $fecha.'-01-01'; ?>">Enero</option>
+                                    <option value="<?php echo $fecha.'-02-01'; ?>">Febrero</option>
+                                    <option value="<?php echo $fecha.'-03-01'; ?>">Marzo</option>
+                                    <option value="<?php echo $fecha.'-04-01'; ?>">Abril</option>
+                                    <option value="<?php echo $fecha.'-05-01'; ?>">Mayo</option>
+                                    <option value="<?php echo $fecha.'-06-01'; ?>">Junio</option>
+                                    <option value="<?php echo $fecha.'-07-01'; ?>">Julio</option>
+                                    <option value="<?php echo $fecha.'-08-01'; ?>">Agosto</option>
+                                    <option value="<?php echo $fecha.'-09-01'; ?>">Septiembre</option>
+                                    <option value="<?php echo $fecha.'-10-01'; ?>">Octubre</option>
+                                    <option value="<?php echo $fecha.'-11-01'; ?>">Noviembre</option>
+                                    <option value="<?php echo $fecha.'-12-01'; ?>">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                Hasta
+                            </label>
+                            <div>
+                                <select class="form-control" name="txtFechaF" id="ff">
+                                    <option disabled selected>--Seleccine--</option>
+                                    <option value="<?php echo $fecha.'-01-31'; ?>">Enero</option>
+                                    <option value="<?php echo $fecha.'-02-31'; ?>">Febrero</option>
+                                    <option value="<?php echo $fecha.'-03-31'; ?>">Marzo</option>
+                                    <option value="<?php echo $fecha.'-04-31'; ?>">Abril</option>
+                                    <option value="<?php echo $fecha.'-05-31'; ?>">Mayo</option>
+                                    <option value="<?php echo $fecha.'-06-31'; ?>">Junio</option>
+                                    <option value="<?php echo $fecha.'-07-31'; ?>">Julio</option>
+                                    <option value="<?php echo $fecha.'-08-31'; ?>">Agosto</option>
+                                    <option value="<?php echo $fecha.'-09-31'; ?>">Septiembre</option>
+                                    <option value="<?php echo $fecha.'-10-31'; ?>">Octubre</option>
+                                    <option value="<?php echo $fecha.'-11-31'; ?>">Noviembre</option>
+                                    <option value="<?php echo $fecha.'-12-31'; ?>">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="btnGenerarReporte" style="margin-top: 25px;" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px;" id="CargaReporte" class="table-responsive">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

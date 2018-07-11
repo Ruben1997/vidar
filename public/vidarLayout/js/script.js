@@ -1,5 +1,16 @@
 var RUTA_URL = 'http://localhost/vidar/';
 $(document).ready(function () {
+    $(document).on('click', '#btnGenerarReporte', function () {
+        var ficha = $('#selFicha').val();
+        var fi = $('#fi').val();
+        var ff = $('#ff').val();
+        var data = {
+            'ficha': ficha,
+            'fi': fi,
+            'ff': ff
+        };
+        cargadivconsulta('CargaReporte', RUTA_URL + 'reportes/genasistencia/', data);
+    });
     $(document).on('change', '#chek2', function () {
         var id = $(this).attr('data-id');
         $('.seleccion' + id).prop('checked', false);

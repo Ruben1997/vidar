@@ -39,7 +39,7 @@ class View {
                     'titulo' => 'Asistencia',
                     'title' => 'Asistencia',
                     'icono' => 'fa fa-calendar',
-                    'enlace' => RUTA_URL . 'reportes/asistenciamyt'
+                    'enlace' => RUTA_URL . 'reportes/asistencia'
                 ),
                 array(
                     'id' => 'rep2',

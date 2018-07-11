@@ -1,0 +1,98 @@
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<form id="formAsignar" method="post" action="<?php echo RUTA_URL . 'procesos/setasignar'; ?>">
+    <input type="hidden" id="numFicha" name="txtFicha" value="<?php echo $this->ficha; ?>">
+    <button id="btnGuardarUsuariosAsignar" style="margin-top: 20px; margin-bottom: 20px;" type="button" class="btn btn-primary">Guardar</button>
+    &nbsp;<button type="button" class="btn btn-primary" id="btnArchivoPlano">Subir archivo plano</button>
+    <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                    <td>
+                        <?php for ($j = 0; $j < count($this->usuarios[$i]['meses']); $j++) { ?>
+                            <?php
+                            if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Jan') {
+                                $mes = "Enero";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Feb') {
+                                $mes = "Febrero";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Mar') {
+                                $mes = "Marzo";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Apr') {
+                                $mes = "Abril";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'May') {
+                                $mes = "Mayo";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Jun') {
+                                $mes = "Junio";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Jul') {
+                                $mes = "Julio";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Aug') {
+                                $mes = "Agosto";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Sep') {
+                                $mes = "Septiembre";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Oct') {
+                                $mes = "Octubre";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Nov') {
+                                $mes = "Noviembre";
+                            } else if ($this->usuarios[$i]['meses'][$j]['mes'] == 'Dec') {
+                                $mes = "Diciembre";
+                            }
+                            ?>
+                            <div class="table-responsive">
+                                <table class="">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="text-center">
+                                                    <?php echo $mes; ?>
+                                                </div>
+                                        <?php if (count($this->usuarios[$i]['dias']) > 0) { ?>
+                                        <center>
+                                            <table class="" width="50px">
+                                                <?php for ($i4 = 0; $i4 < count($this->usuarios[$i]['dias']); $i4++) { ?>
+                                                        <?php if ($this->usuarios[$i]['dias'][$i4]['mesdia'] == $this->usuarios[$i]['meses'][$j]['mes']) { ?>
+                                                            <td class="text-center"><?php echo $this->usuarios[$i]['dias'][$i4]['dia']; ?></td>
+                                                        <?php } ?>   
+                                                <?php } ?>
+                                            </table>
+                                        </center>
+                                        <center>
+                                            <table class="" width="50px">
+                                                <?php for ($i4 = 0; $i4 < count($this->usuarios[$i]['dias']); $i4++) { ?>
+                                                        <?php if ($this->usuarios[$i]['dias'][$i4]['mesdia'] == $this->usuarios[$i]['meses'][$j]['mes']) { ?>
+                                                            <?php if($this->usuarios[$i]['dias'][$i4]['estado']=='A'){ ?>
+                                                                <?php echo '<td class="text-center"><img src="' . COMMON . 'img/a.png" data-toggle="tooltip" title="' . $this->usuarios[$i]['dias'][$i4]['mesdia'] . ' ' . $this->usuarios[$i]['dias'][$i4]['mesdia'] . ' Asistio"></td>'; ?>
+                                                            <?php }else{ ?>
+                                                                <?php echo '<td class="text-center"><img src="' . COMMON . 'img/n.png" data-toggle="tooltip" title="' . $this->usuarios[$i]['dias'][$i4]['mesdia'] . ' ' . $this->usuarios[$i]['dias'][$i4]['mesdia'] . ' No Asistio"></td>'; ?>
+                                                            <?php } ?>
+                                                        <?php } ?>   
+                                                <?php } ?>
+                                            </table>
+                                        </center>
+                                        <?php } ?>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+</form>
+

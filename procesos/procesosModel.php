@@ -17,6 +17,7 @@ class procesosModel extends Model {
     public function __construct() {
         parent::__construct();
     }
+    
 
     function setasistencia() {
         if ($_POST) {
