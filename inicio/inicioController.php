@@ -24,7 +24,7 @@ class inicioController extends Controller {
     }
 
     public function portal() {
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Portal';
         $this->_view->metodo = "Portal";
         $this->_view->metodoaccion = 'Inicio';
@@ -76,7 +76,7 @@ class inicioController extends Controller {
     }
 
     public function index() {
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Login Usuario';
         $this->_view->metodo = "Inicio";
         $this->_view->metodoaccion = 'Iniciar Sesion';
@@ -84,7 +84,7 @@ class inicioController extends Controller {
     }
 
     public function registrarse() {
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Formulario Registro';
         $this->_view->metodo = "Inicio";
         $this->_view->metodoaccion = 'Registro Usuarios';

@@ -23,10 +23,10 @@
                 <div class="box-body">
                     <form id="form1" method="post" action="<?php echo RUTA_URL . 'inicio/guardardatos'; ?>">
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Tipo Documento
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <select class="form-control" name="txtTipo">
                                     <option disabled selected>--Seleccione--</option>
                                     <option value="CC">Cédula de Ciudadanía</option>
@@ -39,68 +39,62 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Documento
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input name="txtDocumento" type="number" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Nombres
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="text" name="txtNombre" class="form-control" value="">
                             </div>
                         </div>
-                        <br/><br/>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Apellidos
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="text" name="txtApellido" class="form-control" value="">
                             </div>
                         </div>
-                        <br/><br/>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Correo
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="text" class="form-control" name="txtCorreo">
                             </div>
                         </div>
-                        <br/><br/>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Telefono
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="number" class="form-control" name="txtTelefono">
                             </div>
                         </div>
-                        <br/><br/>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Contraseña
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="password" class="form-control" name="password">
                             </div>
                         </div>
-                        <br/><br/>
                         <div class="form-group">
-                            <label class="control-label col-lg-4">
+                            <label>
                                 Confirme Contraseña
                             </label>
-                            <div class="col-lg-8">
+                            <div>
                                 <input type="password" class="form-control" name="confirmPassword">
                             </div>
                         </div>
-                        <br/><br/><br/>
-                        <div class="text-center">
+                        <div class="form-group">
                             <input type="submit" id="enviarHuellas" class="btn btn-success" value="Guardar">&nbsp;<a href="<?php echo RUTA_URL . 'inicio/index'; ?>" class="btn btn-danger">Cancelar</a>
                         </div>
                     </form>
