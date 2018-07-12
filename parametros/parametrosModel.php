@@ -18,6 +18,74 @@ class parametrosModel extends Model {
         parent::__construct();
     }
 
+    function instructoresfichas() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
+                    . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                    . "WHERE roles.rolNombre='Instructor' ORDER BY usuarios.usuNombre");
+            $res = $sql->fetchall();
+            $array = array();
+            for ($i = 0; $i < count($res); $i++) {
+                $e = array();
+                $e['usuId'] = $res[$i]['usuId'];
+                $e['usuTipoDocu'] = $res[$i]['usuTipoDocu'];
+                $e['usuDocumento'] = $res[$i]['usuDocumento'];
+                $e['usuNombre'] = $res[$i]['usuNombre'];
+                $e['usuApellido'] = $res[$i]['usuApellido'];
+                $e['usuCorreo'] = $res[$i]['usuCorreo'];
+                $e['usuTelefono'] = $res[$i]['usuTelefono'];
+                $ficha = $this->_db->query("SELECT detalleaprendiz.detId FROM detalleaprendiz "
+                        . "WHERE detalleaprendiz.detIdAprendiz='" . $res[$i]['usuId'] . "' AND detalleaprendiz.detIdFicha='" . $_POST['ficha'] . "'");
+                $resficha = $ficha->fetchall();
+                if (count($resficha) > 0) {
+                    $e['estado'] = 'A';
+                    $e['detId'] = $resficha[0]['detId'];
+                } else {
+                    $e['estado'] = 'I';
+                    $e['detId'] = '';
+                }
+                array_push($array, $e);
+            }
+            return $array;
+        } else {
+            return 0;
+        }
+    }
+
+    function aprendicesfichas() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
+                    . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                    . "WHERE roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre");
+            $res = $sql->fetchall();
+            $array = array();
+            for ($i = 0; $i < count($res); $i++) {
+                $e = array();
+                $e['usuId'] = $res[$i]['usuId'];
+                $e['usuTipoDocu'] = $res[$i]['usuTipoDocu'];
+                $e['usuDocumento'] = $res[$i]['usuDocumento'];
+                $e['usuNombre'] = $res[$i]['usuNombre'];
+                $e['usuApellido'] = $res[$i]['usuApellido'];
+                $e['usuCorreo'] = $res[$i]['usuCorreo'];
+                $e['usuTelefono'] = $res[$i]['usuTelefono'];
+                $ficha = $this->_db->query("SELECT detalleaprendiz.detId FROM detalleaprendiz "
+                        . "WHERE detalleaprendiz.detIdAprendiz='" . $res[$i]['usuId'] . "' AND detalleaprendiz.detIdFicha='" . $_POST['ficha'] . "'");
+                $resficha = $ficha->fetchall();
+                if (count($resficha) > 0) {
+                    $e['estado'] = 'A';
+                    $e['detId'] = $resficha[0]['detId'];
+                } else {
+                    $e['estado'] = 'I';
+                    $e['detId'] = '';
+                }
+                array_push($array, $e);
+            }
+            return $array;
+        } else {
+            return 0;
+        }
+    }
+
     function bajaactas($arg = false) {
         if ($arg) {
             $sql = $this->_db->exec("UPDATE actas SET actas.actEstado='I' WHERE actas.actId='" . $arg . "'");

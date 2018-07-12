@@ -44,6 +44,9 @@
                                             <button value="<?php echo $this->fichas[$i]['fchaId']; ?>" class="btn btn-warning" id="btnEditarFichas">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                             </button>
+                                            <button value="<?php echo $this->fichas[$i]['fchaId']; ?>" class="btn btn-success" id="btnAsignarUsers">
+                                                <span class="glyphicon glyphicon-user"></span>
+                                            </button>
                                             <button data-id="<?php echo $this->fichas[$i]['fchaId']; ?>" data-nom="<?php echo $this->fichas[$i]['fchaNumero']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalFichas">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </button>

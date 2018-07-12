@@ -1,6 +1,21 @@
 $(document).ready(function () {
     var host = 'http://localhost/vidar/';
     //var host = 'https://ganadinero.000webhostapp.com/vidar/';
+    $(document).on('click', '#btnEliminarInstructor', function () {
+        var id = $(this).val();
+        var ficha = $(this).attr('data-ficha');
+        var data = {
+            'id': id,
+            'ficha': ficha
+        };
+        cargadivconsulta('cargaFichaInstructores', host + 'parametros/setusuariosinstructores/', data);
+    });
+    $(document).on('click', '#btnAsignarUsers', function () {
+        var data = {
+            'ficha': $(this).val()
+        };
+        cargadivconsulta('vista', host + 'parametros/usuariosasignadosfichas/', data);
+    });
     $(document).on('click', '#btnQuitar', function () {
         var comite = $(this).attr('data-comite');
         var data = {

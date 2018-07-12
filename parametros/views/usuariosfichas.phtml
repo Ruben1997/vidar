@@ -1,0 +1,121 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Usuarios asignados ficha</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <div class="box-body">
+        <form id="formAsignar" method="post" action="<?php echo RUTA_URL . 'parametros/setusuariosfichas'; ?>">
+            <input type="hidden" id="numFicha" name="txtFicha" value="<?php echo $this->ficha; ?>">
+            <label class="form-control" style="margin-bottom: 20px;">
+                Instructores
+            </label>
+            <div id="cargaFichaInstructores">
+                <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo</th>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < count($this->instructores); $i++): ?>
+                            <tr>
+                                <td><?php echo $i + 1; ?></td>
+                                <td><?php echo $this->instructores[$i]['usuTipoDocu']; ?></td>
+                                <td><?php echo $this->instructores[$i]['usuDocumento']; ?></td>
+                                <td><?php echo ucwords(strtolower($this->instructores[$i]['usuNombre'])); ?></td>
+                                <td><?php echo ucwords(strtolower($this->instructores[$i]['usuApellido'])); ?></td>
+                                <td><?php echo $this->instructores[$i]['usuCorreo']; ?></td>
+                                <td><?php echo $this->instructores[$i]['usuTelefono']; ?></td>
+                                <td class="text-center">
+                                    <?php if ($this->instructores[$i]['estado'] == 'A') { ?>
+                                        <input type="hidden" name="txtCodigoInstructor[]" value="<?php echo $this->instructores[$i]['detId']; ?>">
+                                        <input checked name="txtInstructor[]" type="checkbox" value="<?php echo $this->instructores[$i]['usuId']; ?>">
+                                        <button type="button" class="close" data-ficha="<?php echo $this->ficha; ?>" id="btnEliminarInstructor" value="<?php echo $this->instructores[$i]['detId']; ?>">&times;</button>
+                                    <?php } else { ?>
+                                        <input type="hidden" name="txtCodigoInstructor[]" value="">
+                                        <input name="txtInstructor[]" type="checkbox" value="<?php echo $this->instructores[$i]['usuId']; ?>">
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php endfor; ?>
+                    </tbody>
+                </table>
+            </div>
+            <label class="form-control" style="margin-bottom: 20px; margin-top: 20px;">
+                Aprendices
+            </label>
+            <div id="cargaFichaAprendices">
+                <table class="table-bordered table table-condensed table-responsive table-hover" id="example2">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo</th>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Telefono</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < count($this->aprendices); $i++): ?>
+                            <tr>
+                                <td><?php echo $i + 1; ?></td>
+                                <td><?php echo $this->aprendices[$i]['usuTipoDocu']; ?></td>
+                                <td><?php echo $this->aprendices[$i]['usuDocumento']; ?></td>
+                                <td><?php echo ucwords(strtolower($this->aprendices[$i]['usuNombre'])); ?></td>
+                                <td><?php echo ucwords(strtolower($this->aprendices[$i]['usuApellido'])); ?></td>
+                                <td><?php echo $this->aprendices[$i]['usuCorreo']; ?></td>
+                                <td><?php echo $this->aprendices[$i]['usuTelefono']; ?></td>
+                                <td class="text-center">
+                                    <?php if ($this->aprendices[$i]['estado'] == 'A') { ?>
+                                        <input type="hidden" name="txtCodigoAprendiz[]" value="<?php echo $this->aprendices[$i]['detId']; ?>">
+                                        <input checked name="txtAprendiz[]" type="checkbox" value="<?php echo $this->aprendices[$i]['usuId']; ?>">
+                                        <button type="button" class="close" data-ficha="<?php echo $this->ficha; ?>" id="btnEliminarAprendiz" value="<?php echo $this->aprendices[$i]['detId']; ?>">&times;</button>
+                                    <?php } else { ?>
+                                        <input type="hidden" name="txtCodigoAprendiz[]" value="">
+                                        <input name="txtAprendiz[]" type="checkbox" value="<?php echo $this->aprendices[$i]['usuId']; ?>">
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php endfor; ?>
+                    </tbody>
+                </table>
+            </div>
+            <button id="btnGuardarUsuariosAsignar" style="margin-top: 20px; margin-bottom: 20px;" type="button" class="btn btn-primary">Guardar</button>
+            <a href="<?php echo RUTA_URL . 'parametros/fichas'; ?>" class="btn btn-danger">Volver</a>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').dataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            oLanguage: {
+                "sSearch": "Buscar:"
+            }
+        });
+        $('#example2').dataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            oLanguage: {
+                "sSearch": "Buscar:"
+            }
+        });
+    });
+</script>
+

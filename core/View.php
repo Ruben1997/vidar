@@ -66,8 +66,8 @@ class View {
                 ),
                 array(
                     'id' => 'proc8',
-                    'titulo' => 'Agendar Comite',
-                    'title' => 'Agendar Comite',
+                    'titulo' => 'Programar comite evaluacion',
+                    'title' => 'Programar comite de evaluacion',
                     'icono' => 'fa fa-check-circle',
                     'enlace' => RUTA_URL . 'procesos/agendarcomite'
                 ),
@@ -77,13 +77,6 @@ class View {
                     'title' => 'Solicitar comite de evaluacion',
                     'icono' => 'fa fa-check-circle',
                     'enlace' => RUTA_URL . 'procesos/solicitarcomite'
-                ),
-                array(
-                    'id' => 'proc5',
-                    'titulo' => 'Programar comite evaluacion',
-                    'title' => 'Programar comite de evaluacion',
-                    'icono' => 'fa fa-check-circle',
-                    'enlace' => RUTA_URL . 'procesos/programarcomite'
                 ),
                 array(
                     'id' => 'proc3',

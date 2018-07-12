@@ -18,6 +18,18 @@ class parametrosController extends Controller {
         parent::__construct("parametros");
     }
 
+    public function setusuariosinstructores() {
+        $data = $this->loadModel('parametros');
+    }
+
+    public function usuariosasignadosfichas() {
+        $data = $this->loadModel('parametros');
+        $this->_view->instructores = $data->instructoresfichas();
+        $this->_view->aprendices = $data->aprendicesfichas();
+        $this->_view->ficha = $_POST['ficha'];
+        $this->_view->renderizar('usuariosfichas', 'blank');
+    }
+
     public function bajactas($argum = false) {
         $data = $this->loadModel('parametros');
         $sql = $data->bajaactas($argum);
@@ -132,7 +144,7 @@ class parametrosController extends Controller {
 
     public function aprendices() {
         $data = $this->loadModel('parametros');
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Aprendices';
         $this->_view->metodo = "Parametros";
         $this->_view->metodoaccion = 'Aprendices';
@@ -186,7 +198,7 @@ class parametrosController extends Controller {
 
     public function fichas() {
         $data = $this->loadModel('parametros');
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Fichas';
         $this->_view->metodo = "Parametros";
         $this->_view->metodoaccion = 'Fichas';
@@ -236,7 +248,7 @@ class parametrosController extends Controller {
 
     public function programas() {
         $data = $this->loadModel('parametros');
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Programas';
         $this->_view->metodo = "Parametros";
         $this->_view->metodoaccion = 'Programas';
@@ -304,7 +316,7 @@ class parametrosController extends Controller {
 
     public function institucion() {
         $data = $this->loadModel('parametros');
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->instituciones = $data->instituciones();
         $this->_view->titulo = 'Instituciones';
         $this->_view->metodo = "Parametros";
