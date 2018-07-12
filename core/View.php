@@ -65,6 +65,13 @@ class View {
                     'enlace' => RUTA_URL . 'procesos/autorizarusuario'
                 ),
                 array(
+                    'id' => 'proc8',
+                    'titulo' => 'Agendar Comite',
+                    'title' => 'Agendar Comite',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/agendarcomite'
+                ),
+                array(
                     'id' => 'proc2',
                     'titulo' => 'Solicitar comite de evaluacion',
                     'title' => 'Solicitar comite de evaluacion',

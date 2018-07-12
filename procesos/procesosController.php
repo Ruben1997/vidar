@@ -18,6 +18,61 @@ class procesosController extends Controller {
         parent::__construct("procesos");
     }
 
+    public function cargatablasinstructores() {
+        $data = $this->loadModel('procesos');
+        $sql = $data->bajadetallecomite();
+        if ($sql) {
+            $this->_view->usuarios = $data->listainstructores();
+            $this->_view->renderizar('tablainstructores', 'blank');
+        }
+    }
+
+    public function guardardatoscomite() {
+        $data = $this->loadModel('procesos');
+        $sql = $data->setagendacomite();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('procesos/agendarcomite');
+        exit();
+    }
+
+    public function setagendarcomite() {
+        $data = $this->loadModel('procesos');
+        $this->_view->id = $_POST['id'];
+        $this->_view->datos = $data->onecomite();
+        $this->_view->usuarios = $data->listainstructores();
+        $this->_view->renderizar('formularioagendar', 'blank');
+    }
+
+    public function agendarcomite() {
+        $data = $this->loadModel('procesos');
+        @$layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Agendar Comite';
+        $this->_view->metodo = "Procesos";
+        $this->_view->metodoaccion = 'Agendar Comite';
+        $this->_view->comites = $data->listacomites();
+        $this->_view->renderizar('agendarcomite', 'vidar', $layout);
+    }
+
+    public function setcomite() {
+        $data = $this->loadModel('procesos');
+        $sql = $data->setcomite();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('procesos/solicitarcomite');
+        exit();
+    }
+
     public function aprendicescomite() {
         $data = $this->loadModel('procesos');
         $this->_view->usuarios = $data->aprendicescomite();
@@ -152,7 +207,7 @@ class procesosController extends Controller {
         $data = $this->loadModel('parametros');
         $this->_view->instituciones = $data->instituciones();
         $this->_view->programas = $data->programas();
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Asignar Aprendices';
         $this->_view->metodo = "Procesos";
         $this->_view->metodoaccion = 'Asignar Aprendices';
@@ -183,7 +238,7 @@ class procesosController extends Controller {
     public function autorizarusuario() {
         $data = $this->loadModel('procesos');
         $this->_view->usuarios = $data->autorizausuarios();
-        $layout = $this->layout($_POST['val']);
+        @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Autorizar Usuarios';
         $this->_view->metodo = "Procesos";
         $this->_view->metodoaccion = 'Autorizar Usuarios';

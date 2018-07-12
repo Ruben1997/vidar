@@ -41,7 +41,7 @@
                                         <td><?php echo $this->actas[$i]['fchaNumero']; ?></td>
                                         <td><?php echo $this->actas[$i]['actNumero']; ?></td>
                                         <td><?php echo $this->actas[$i]['actFecha']; ?></td>
-                                        <td><a href="<?php $this->actas[$i]['actRuta']; ?>" target="_blank">Acta No <?php echo $this->actas[$i]['actNumero']; ?></a></td>
+                                        <td><a href="<?php echo $this->actas[$i]['actRuta']; ?>" target="_blank">Acta No <?php echo $this->actas[$i]['actNumero']; ?></a></td>
                                         <td class="text-center">
                                             <button value="<?php echo $this->actas[$i]['actId']; ?>" class="btn btn-warning" id="btnEditarActas">
                                                 <span class="glyphicon glyphicon-edit"></span>

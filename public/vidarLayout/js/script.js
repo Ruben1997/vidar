@@ -1,6 +1,14 @@
 $(document).ready(function () {
     var host = 'http://localhost/vidar/';
     //var host = 'https://ganadinero.000webhostapp.com/vidar/';
+    $(document).on('click', '#btnQuitar', function () {
+        var comite = $(this).attr('data-comite');
+        var data = {
+            'id': comite,
+            'iddetalle': $(this).val()
+        };
+        cargadivconsulta('tablaInstructores', host + 'procesos/cargatablasinstructores/', data);
+    });
     $(document).on('change', '#selActa', function () {
         var data = {
             'acta': $(this).val()
