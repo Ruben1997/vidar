@@ -1,8 +1,129 @@
-<?php
+<section class="content-header">
+    <h1>
+        Vidar
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<!-- Main content -->
+<section class="content">
+    <!-- Info boxes -->
+    <div class="row">
+        <?php if (Session::get('autenticado')) { ?>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="ion ion-ios-calendar"></i></span>
 
+                    <div class="info-box-content">
+                        <span class="info-box-text">Comites de evaluacion proximos</span>
+                        <span class="info-box-number"><?php echo $this->cantcomites[0]['porterminar']; ?></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-check-circle"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Comites de evaluacion asignados</span>
+                        <span class="info-box-number"><?php echo $this->cantcomites[0]['asignados']; ?></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="ion ion-ios-calendar"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Planes de mejoramiento proximos</span>
+                        <span class="info-box-number"><?php echo $this->cantcomites[0]['planesterminar']; ?></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Planes de ,ejoramiento asiganos</span>
+                        <span class="info-box-number"><?php echo $this->cantcomites[0]['planesasignados']; ?></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- TABLE: LATEST ORDERS -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Vidar</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        El texto descriptivo, en este caso un retrato de una persona, provoca en el receptor una imagen tal que la realidad descripta cobra forma, se materializa en su mente. En este caso el texto habla de un personaje real: Doña Uzeada de Ribera Maldonado de Bracamonte y Anaya. Como se trata de una descripcion literaria, la actitud del emisor es subjetiva, dado que pretende transmitir su propia vision personal al describir y la funcion del lenguaje es predominantemente poetica, ya que persigue una estetica en particular.
+                    </div>
+                </div>
+                <!-- /.box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Objetivo</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        El texto descriptivo, en este caso un retrato de una persona, provoca en el receptor una imagen tal que la realidad descripta cobra forma, se materializa en su mente. En este caso el texto habla de un personaje real: Doña Uzeada de Ribera Maldonado de Bracamonte y Anaya. Como se trata de una descripcion literaria.
+                    </div>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class="col-md-6">
+                <!-- TABLE: LATEST ORDERS -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Vidar</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        El texto descriptivo, en este caso un retrato de una persona, provoca en el receptor una imagen tal que la realidad descripta cobra forma, se materializa en su mente. En este caso el texto habla de un personaje real: Doña Uzeada de Ribera Maldonado de Bracamonte y Anaya. Como se trata de una descripcion literaria, la actitud del emisor es subjetiva, dado que pretende transmitir su propia vision personal al describir y la funcion del lenguaje es predominantemente poetica, ya que persigue una estetica en particular.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- /.box -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Objetivo</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        El texto descriptivo, en este caso un retrato de una persona, provoca en el receptor una imagen tal que la realidad descripta cobra forma, se materializa en su mente. En este caso el texto habla de un personaje real: Doña Uzeada de Ribera Maldonado de Bracamonte y Anaya. Como se trata de una descripcion literaria.
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</section>

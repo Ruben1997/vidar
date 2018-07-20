@@ -10,17 +10,39 @@
             <input type="hidden" name="txtCodigo" value="<?php echo $this->id; ?>">
             <div class="form-group">
                 <label for="exampleInputEmail1">Fecha Comite</label>
-                <input type="text" placeholder="yyyy/mm/dd" value="<?php echo $this->datos[0]['comFechaComite']; ?>" id="txtFechallamado" class="form-control datepicker" name="txtFecha">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Hora Comite</label>
-                <div class="input-group">
-                    <input type="text" name="txtHora" value="<?php echo $this->datos[0]['comHoraComite']; ?>" class="form-control timepicker">
+                <div class="input-group date">
                     <div class="input-group-addon">
-                        <i class="fa fa-clock-o"></i>
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <?php if ($this->datos[0]['comFechaComite'] != '0000-00-00') { ?>
+                        <input type="text" placeholder="yyyy/mm/dd" value="<?php echo $this->datos[0]['comFechaComite']; ?>" id="txtFechallamado" class="form-control datepicker" name="txtFecha">
+                    <?php } else { ?>
+                        <input type="text" placeholder="yyyy/mm/dd" value="" id="txtFechallamado" class="form-control datepicker" name="txtFecha">
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="bootstrap-timepicker">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Hora Comite</label>
+                    <div class="input-group">
+                        <?php if ($this->datos[0]['comHoraComite'] != '00:00:00') { ?>
+                            <input type="text" name="txtHora" value="<?php echo $this->datos[0]['comHoraComite']; ?>" class="form-control timepicker">
+                        <?php } else { ?>
+                            <input type="text" name="txtHora" value="" class="form-control timepicker">
+                        <?php } ?>
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Lugar Comite</label>
+                <input type="text" value="<?php echo $this->datos[0]['comLugar']; ?>" class="form-control" name="txtLugar">
+            </div>
+            <label style="margin-top: 10px; margin-bottom: 10px;" class="form-control">
+                Instructores
+            </label>
             <div id="tablaInstructores">
                 <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
                     <thead>

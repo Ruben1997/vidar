@@ -33,6 +33,22 @@ class View {
 
     public function menu() {
         if (Session::get('autenticado') && Session::get('perfil') == 'Administrador') {
+            $subsesion = array(
+                array(
+                    'id' => 'ses1',
+                    'titulo' => 'Editar datos personales',
+                    'title' => 'Editar datos personales',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editdatos'
+                ),
+                array(
+                    'id' => 'ses2',
+                    'titulo' => 'Configurar cuenta',
+                    'title' => 'Configurar cuenta',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editcuenta'
+                )
+            );
             $subreportes = array(
                 array(
                     'id' => 'rep1',
@@ -94,17 +110,17 @@ class View {
                 ),
                 array(
                     'id' => 'proc6',
-                    'titulo' => 'Novedad Academica',
+                    'titulo' => 'Novedades',
                     'title' => 'Novedad Academica',
                     'icono' => 'fa fa-check-circle',
-                    'enlace' => RUTA_URL . 'procesos/novedadacademica'
+                    'enlace' => RUTA_URL . 'procesos/novedades'
                 ),
                 array(
-                    'id' => 'proc7',
-                    'titulo' => 'Novedad Disciplinaria',
-                    'title' => 'Novedad Disciplinaria',
+                    'id' => 'proc9',
+                    'titulo' => 'Plan de mejoramiento',
+                    'title' => 'Plan de mejoramiento',
                     'icono' => 'fa fa-check-circle',
-                    'enlace' => RUTA_URL . 'procesos/novedaddisciplinaria'
+                    'enlace' => RUTA_URL . 'procesos/planesdemejoramiento'
                 ),
             );
             $subparametros = array(
@@ -137,11 +153,163 @@ class View {
                     'enlace' => RUTA_URL . 'parametros/faltasyaspectos'
                 ),
                 array(
+                    'id' => 'pro7',
+                    'titulo' => 'Reglamento Aprendiz',
+                    'title' => 'Reglamento Aprendiz',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/reglamentoaprendiz'
+                ),
+                array(
                     'id' => 'pro4',
                     'titulo' => 'Institucion',
                     'title' => 'Institucion',
                     'icono' => 'fa fa-newspaper-o',
                     'enlace' => RUTA_URL . 'parametros/institucion'
+                ),
+                array(
+                    'id' => 'pro5',
+                    'titulo' => 'Actas de equipo ejecutor',
+                    'title' => 'Actas de equipo ejecutor',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/actasequipo'
+                ),
+            );
+            $menu = array(
+                array(
+                    'id' => 'inicio',
+                    'titulo' => 'Inicio',
+                    'title' => 'Inicio',
+                    'icono' => 'fa fa-home',
+                    'enlace' => RUTA_URL . 'inicio/portal',
+                    'sub' => '',
+                ),
+                array(
+                    'id' => 'parametros',
+                    'titulo' => 'Parametros',
+                    'icono' => 'fa fa-book',
+                    'enlace' => '',
+                    'sub' => $subparametros
+                ),
+                array(
+                    'id' => 'procesos',
+                    'titulo' => 'Procesos',
+                    'icono' => 'fa fa-cog',
+                    'enlace' => '',
+                    'sub' => $subprocesos
+                ),
+                array(
+                    'id' => 'reportes',
+                    'titulo' => 'Reportes',
+                    'icono' => 'fa fa-server',
+                    'enlace' => '',
+                    'sub' => $subreportes
+                ),
+                array(
+                    'id' => 'cuenta',
+                    'titulo' => 'Cuenta',
+                    'icono' => 'fa fa-user',
+                    'enlace' => '',
+                    'sub' => $subsesion
+                )
+            );
+        } else if (Session::get('autenticado') && Session::get('perfil') == 'Instructor') {
+            $subsesion = array(
+                array(
+                    'id' => 'ses1',
+                    'titulo' => 'Editar datos personales',
+                    'title' => 'Editar datos personales',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editdatos'
+                ),
+                array(
+                    'id' => 'ses2',
+                    'titulo' => 'Configurar cuenta',
+                    'title' => 'Configurar cuenta',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editcuenta'
+                )
+            );
+            $subreportes = array(
+                array(
+                    'id' => 'rep1',
+                    'titulo' => 'Asistencia',
+                    'title' => 'Asistencia',
+                    'icono' => 'fa fa-calendar',
+                    'enlace' => RUTA_URL . 'reportes/asistencia'
+                ),
+                array(
+                    'id' => 'rep2',
+                    'titulo' => 'Novedades',
+                    'title' => 'Novedades',
+                    'icono' => 'fa fa-calendar',
+                    'enlace' => RUTA_URL . 'reportes/novedades'
+                ),
+                array(
+                    'id' => 'rep3',
+                    'titulo' => 'Comite de evaluacion',
+                    'title' => 'Comite de evaluacion',
+                    'icono' => 'fa fa-calendar',
+                    'enlace' => RUTA_URL . 'reportes/comitedeevaluacion'
+                ),
+            );
+            $subprocesos = array(
+                array(
+                    'id' => 'proc2',
+                    'titulo' => 'Solicitar comite de evaluacion',
+                    'title' => 'Solicitar comite de evaluacion',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/solicitarcomite'
+                ),
+                array(
+                    'id' => 'proc3',
+                    'titulo' => 'Asignar Aprendices',
+                    'title' => 'Asignar aprendices ficha',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/asignaraprendices'
+                ),
+                array(
+                    'id' => 'proc4',
+                    'titulo' => 'Registrar Inasistencia',
+                    'title' => 'Registrar Inasistencia',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/inasistencia'
+                ),
+                array(
+                    'id' => 'proc6',
+                    'titulo' => 'Novedades',
+                    'title' => 'Novedad Academica',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/novedades'
+                ),
+                array(
+                    'id' => 'proc9',
+                    'titulo' => 'Plan de mejoramiento',
+                    'title' => 'Plan de mejoramiento',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/planesdemejoramiento'
+                ),
+            );
+            $subparametros = array(
+                array(
+                    'id' => 'pro',
+                    'titulo' => 'Aprendices',
+                    'title' => 'Aprendices',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/aprendices'
+                ),
+                array(
+                    'id' => 'pro2',
+                    'titulo' => 'Fichas',
+                    'title' => 'Fichas',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/fichas'
+                ),
+                array(
+                    'id' => 'pro3',
+                    'titulo' => 'Faltas y aspectos positivos',
+                    'title' => 'Faltas y aspectos positivos',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/faltasyaspectos'
                 ),
                 array(
                     'id' => 'pro5',
@@ -180,9 +348,32 @@ class View {
                     'icono' => 'fa fa-server',
                     'enlace' => '',
                     'sub' => $subreportes
+                ),
+                array(
+                    'id' => 'cuenta',
+                    'titulo' => 'Cuenta',
+                    'icono' => 'fa fa-user',
+                    'enlace' => '',
+                    'sub' => $subsesion
                 )
             );
-        } else if (Session::get('autenticado') && Session::get('level') == 'Usuario') {
+        } else if (Session::get('autenticado') && Session::get('perfil') == 'Coordinador Academico') {
+            $subsesion = array(
+                array(
+                    'id' => 'ses1',
+                    'titulo' => 'Editar datos personales',
+                    'title' => 'Editar datos personales',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editdatos'
+                ),
+                array(
+                    'id' => 'ses2',
+                    'titulo' => 'Configurar cuenta',
+                    'title' => 'Configurar cuenta',
+                    'icono' => 'fa fa-user',
+                    'enlace' => RUTA_URL . 'inicio/editcuenta'
+                )
+            );
             $subreportes = array(
                 array(
                     'id' => 'rep1',
@@ -193,26 +384,42 @@ class View {
                 ),
                 array(
                     'id' => 'rep2',
-                    'titulo' => 'Horas Trabajadas',
-                    'title' => 'Horas Trabajadas',
-                    'icono' => 'fa fa-hourglass',
-                    'enlace' => RUTA_URL . 'reportes/asistenciahorasvoluntarios'
+                    'titulo' => 'Novedades',
+                    'title' => 'Novedades',
+                    'icono' => 'fa fa-calendar',
+                    'enlace' => RUTA_URL . 'reportes/novedades'
+                ),
+                array(
+                    'id' => 'rep3',
+                    'titulo' => 'Comite de evaluacion',
+                    'title' => 'Comite de evaluacion',
+                    'icono' => 'fa fa-calendar',
+                    'enlace' => RUTA_URL . 'reportes/comitedeevaluacion'
                 ),
             );
-            $subsesion = array(
+            $subprocesos = array(
                 array(
-                    'id' => 'cerrar',
-                    'titulo' => 'Editar Informacion',
-                    'title' => 'Editar Informacion',
-                    'icono' => 'fa fa-edit',
-                    'enlace' => RUTA_URL . 'sesion/editarinformacion',
+                    'id' => 'proc8',
+                    'titulo' => 'Programar comite evaluacion',
+                    'title' => 'Programar comite de evaluacion',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/agendarcomite'
                 ),
                 array(
-                    'id' => 'cerrar',
-                    'titulo' => 'Configurar Cuenta',
-                    'title' => 'Configurar Cuenta',
-                    'icono' => 'fa fa-address-book-o',
-                    'enlace' => RUTA_URL . 'sesion/cambiarpassword',
+                    'id' => 'proc6',
+                    'titulo' => 'Novedades',
+                    'title' => 'Novedad Academica',
+                    'icono' => 'fa fa-check-circle',
+                    'enlace' => RUTA_URL . 'procesos/novedades'
+                ),
+            );
+            $subparametros = array(
+                array(
+                    'id' => 'pro5',
+                    'titulo' => 'Actas de equipo ejecutor',
+                    'title' => 'Actas de equipo ejecutor',
+                    'icono' => 'fa fa-newspaper-o',
+                    'enlace' => RUTA_URL . 'parametros/actasequipo'
                 )
             );
             $menu = array(
@@ -226,11 +433,17 @@ class View {
                 ),
                 array(
                     'id' => 'parametros',
-                    'titulo' => 'Formulario',
-                    'title' => 'Formulario',
+                    'titulo' => 'Parametros',
                     'icono' => 'fa fa-book',
-                    'enlace' => RUTA_URL . 'parametros/formularioconvocatoria',
-                    'sub' => '',
+                    'enlace' => '',
+                    'sub' => $subparametros
+                ),
+                array(
+                    'id' => 'procesos',
+                    'titulo' => 'Procesos',
+                    'icono' => 'fa fa-cog',
+                    'enlace' => '',
+                    'sub' => $subprocesos
                 ),
                 array(
                     'id' => 'reportes',
@@ -240,30 +453,12 @@ class View {
                     'sub' => $subreportes
                 ),
                 array(
-                    'id' => 'excusas',
-                    'titulo' => 'Subir excusa inasistencia',
-                    'title' => 'Subir excusa inasistencia',
-                    'icono' => 'fa fa-user-plus',
-                    'enlace' => RUTA_URL . 'inicio/excusas',
-                    'sub' => ''
-                ),
-                array(
-                    'id' => 'mensajes',
-                    'titulo' => 'Mensajes recibidos <span class="pull-right-container">
-                    <span class="label label-primary pull-right" id="cantmensajes">4</span>
-                    </span>',
-                    'title' => 'Mensajes recibidos',
-                    'icono' => 'fa fa-comments',
-                    'enlace' => RUTA_URL . 'inicio/mensajeusuarios',
-                    'sub' => '',
-                ),
-                array(
-                    'id' => 'sesion',
+                    'id' => 'cuenta',
                     'titulo' => 'Cuenta',
-                    'icono' => 'fa fa-address-card',
+                    'icono' => 'fa fa-user',
                     'enlace' => '',
-                    'sub' => $subsesion,
-                ),
+                    'sub' => $subsesion
+                )
             );
         } else {
             $menu = array(
@@ -276,19 +471,11 @@ class View {
                     'sub' => '',
                 ),
                 array(
-                    'id' => 'parametros',
-                    'titulo' => 'Formulario Convocatoria',
-                    'title' => 'Formulario Convocatoria',
-                    'icono' => 'fa fa-newspaper-o',
-                    'enlace' => RUTA_URL . 'parametros/formularioconvocatoria',
-                    'sub' => '',
-                ),
-                array(
                     'id' => 'reportes',
-                    'titulo' => 'Consultar Estado Convocatoria',
-                    'title' => 'Consultar Estado Convocatoria',
+                    'titulo' => 'Reporte Aprendiz',
+                    'title' => 'Reporte Aprendiz',
                     'icono' => 'fa fa-search',
-                    'enlace' => RUTA_URL . 'reportes/consultaestadoconvo',
+                    'enlace' => RUTA_URL . 'reportes/datosaprendiz',
                     'sub' => '',
                 ),
                 array(

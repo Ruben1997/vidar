@@ -8,6 +8,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th></th>
+            <th class="text-center">Horas Inasistencia</th>
         </tr>
     </thead>
     <tbody>
@@ -86,6 +87,7 @@
                         </div>
                     <?php } ?>
                 </td>
+                <td class="text-center"><?php echo $this->usuarios[$i]['cantidadhoras'] . ' Horas'; ?></td>
             </tr>
         <?php endfor; ?>
     </tbody>

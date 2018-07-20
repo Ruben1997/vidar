@@ -18,11 +18,121 @@ class parametrosModel extends Model {
         parent::__construct();
     }
 
+    function cargaprogramas() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT programas.proId, programas.proNombre FROM programas "
+                    . "WHERE programas.proInstitucion='" . $_POST['id'] . "' AND programas.proEstado='A' ORDER BY programas.proNombre");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function bajaaspectos($arg = false) {
+        if ($arg) {
+            $sql = $this->_db->exec("UPDATE novedadespredefinidas SET novedadespredefinidas.novpEstado='I' WHERE novedadespredefinidas.novpId='" . $arg . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function setapecto() {
+        if ($_POST) {
+            $sql = $this->_db->exec("INSERT INTO novedadespredefinidas(novpId, novpNovedad, novpIdDeber, novpEstado, novpTipo) VALUES "
+                    . "('" . $_POST['txtCodigo'] . "','" . $_POST['txtDescripcion'] . "','" . $_POST['txtDeber'] . "','A','" . $_POST['txtTipo'] . "') "
+                    . "ON DUPLICATE KEY UPDATE novpNovedad='" . $_POST['txtDescripcion'] . "', novpIdDeber='" . $_POST['txtDeber'] . "', novpTipo='" . $_POST['txtTipo'] . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function oneaspecto() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT novedadespredefinidas.novpId, novedadespredefinidas.novpNovedad, novedadespredefinidas.novpIdDeber, novedadespredefinidas.novpTipo FROM novedadespredefinidas "
+                    . "WHERE novedadespredefinidas.novpId='" . $_POST['id'] . "'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function aspectospositivos() {
+        $sql = $this->_db->query("SELECT novedadespredefinidas.novpId, novedadespredefinidas.novpNovedad, deberesreglamento.debDescripcion, novedadespredefinidas.novpTipo FROM novedadespredefinidas "
+                . "INNER JOIN deberesreglamento ON novedadespredefinidas.novpIdDeber=deberesreglamento.debId "
+                . "WHERE novedadespredefinidas.novpEstado='A' ORDER BY novedadespredefinidas.novpNovedad");
+        return $sql->fetchall();
+    }
+
+    function bajareglamentos($arg = false) {
+        if ($arg) {
+            $sql = $this->_db->exec("UPDATE deberesreglamento SET deberesreglamento.debEstado='I' WHERE deberesreglamento.debId='" . $arg . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function setreglamento() {
+        if ($_POST) {
+            $sql = $this->_db->exec("INSERT INTO deberesreglamento(debId, debDescripcion, debCodigoReglamento, debEstado) "
+                    . "VALUES ('" . $_POST['txtCodigo'] . "','" . $_POST['txtDescripcion'] . "','" . $_POST['txtCodigoReglamento'] . "','A') "
+                    . "ON DUPLICATE KEY UPDATE debDescripcion='" . $_POST['txtDescripcion'] . "', debCodigoReglamento='" . $_POST['txtCodigoReglamento'] . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
+    function onereglamento() {
+        if ($_POST) {
+            $sql = $this->_db->query("SELECT deberesreglamento.debId, deberesreglamento.debDescripcion, deberesreglamento.debCodigoReglamento FROM deberesreglamento "
+                    . "WHERE deberesreglamento.debId='" . $_POST['id'] . "'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
+    function listareglamento() {
+        $sql = $this->_db->query("SELECT deberesreglamento.debId, deberesreglamento.debDescripcion, deberesreglamento.debCodigoReglamento FROM deberesreglamento "
+                . "WHERE deberesreglamento.debEstado='A' ORDER BY deberesreglamento.debDescripcion");
+        return $sql->fetchall();
+    }
+
+    function setusuariosfichas() {
+        if ($_POST) {
+            for ($i = 0; $i < count($_POST['txtInstructor']); $i++) {
+                $instructores = $this->_db->exec("INSERT INTO detalleaprendiz(detId, detIdAprendiz, detIdFicha) "
+                        . "VALUES ('" . $_POST['txtCodigoInstructor'][$i] . "','" . $_POST['txtInstructor'][$i] . "','" . $_POST['txtFicha'] . "') "
+                        . "ON DUPLICATE KEY UPDATE detIdAprendiz='" . $_POST['txtInstructor'][$i] . "', detIdFicha='" . $_POST['txtFicha'] . "'");
+            }
+            for ($i = 0; $i < count($_POST['txtAprendiz']); $i++) {
+                $aprendices = $this->_db->exec("INSERT INTO detalleaprendiz(detId, detIdAprendiz, detIdFicha) "
+                        . "VALUES ('" . $_POST['txtCodigoAprendiz'][$i] . "','" . $_POST['txtAprendiz'][$i] . "','" . $_POST['txtFicha'] . "') "
+                        . "ON DUPLICATE KEY UPDATE detIdAprendiz='" . $_POST['txtAprendiz'][$i] . "', detIdFicha='" . $_POST['txtFicha'] . "'");
+            }
+            return true;
+        } else {
+            return 0;
+        }
+    }
+
+    function bajadetalleusuario() {
+        if ($_POST) {
+            $sql = $this->_db->exec("DELETE FROM detalleaprendiz WHERE detalleaprendiz.detId='" . $_POST['id'] . "'");
+            return $sql;
+        } else {
+            return 0;
+        }
+    }
+
     function instructoresfichas() {
         if ($_POST) {
             $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
                     . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
-                    . "WHERE roles.rolNombre='Instructor' ORDER BY usuarios.usuNombre");
+                    . "WHERE roles.rolNombre='Instructor' GROUP BY usuarios.usuId ORDER BY usuarios.usuNombre");
             $res = $sql->fetchall();
             $array = array();
             for ($i = 0; $i < count($res); $i++) {
@@ -54,9 +164,11 @@ class parametrosModel extends Model {
 
     function aprendicesfichas() {
         if ($_POST) {
-            $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM usuarios "
+            $sql = $this->_db->query("SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono FROM detalleaprendiz "
+                    . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                    . "INNER JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
                     . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
-                    . "WHERE roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre");
+                    . "WHERE roles.rolNombre='Aprendiz' AND fichas.fchaId='" . $_POST['ficha'] . "' GROUP BY usuarios.usuId ORDER BY usuarios.usuNombre");
             $res = $sql->fetchall();
             $array = array();
             for ($i = 0; $i < count($res); $i++) {
@@ -151,36 +263,11 @@ class parametrosModel extends Model {
 
     function tablaaprendices() {
         if ($_POST) {
-            if ((isset($_POST["ficha"]) && isset($_POST["programa"]) && isset($_POST["institucion"])) && ($_POST["ficha"] != "" || $_POST["programa"] != "" || $_POST["institucion"] != "")) {
-                $sql = "SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
-                        . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
-                        . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
-                        . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
-                        . "WHERE ";
-                if (!empty($_POST['ficha'])) {
-                    $sql .= "fichas.fchaId='" . $_POST['ficha'] . "' ";
-                }
-                if (!empty($_POST['programa'])) {
-                    if (!empty($_POST['ficha'])) {
-                        $sql .= "AND ";
-                    }
-                    $sql .= "fichas.fchaIdPrograma='" . $_POST['programa'] . "' ";
-                }
-                if (!empty($_POST['institucion'])) {
-                    if (!empty($_POST['ficha']) || !empty($_POST['programa'])) {
-                        $sql .= "AND ";
-                    }
-                    $sql .= "fichas.fchaIdInstitucion='" . $_POST['institucion'] . "'";
-                }
-
-                $sql .= "AND roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre";
-            } else {
-                $sql = "SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
-                        . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
-                        . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
-                        . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
-                        . "WHERE roles.rolNombre='Aprendiz' ORDER BY usuarios.usuNombre";
-            }
+            $sql = "SELECT usuarios.usuId, usuarios.usuTipoDocu, usuarios.usuDocumento, usuarios.usuNombre, usuarios.usuApellido, usuarios.usuCorreo, usuarios.usuTelefono, fichas.fchaNumero FROM detalleaprendiz "
+                    . "RIGHT JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                    . "LEFT JOIN fichas ON detalleaprendiz.detIdFicha=fichas.fchaId "
+                    . "INNER JOIN roles ON usuarios.usuRol=roles.rolId "
+                    . "WHERE fichas.fchaId='" . $_POST['ficha'] . "' AND roles.rolNombre='Aprendiz'";
             $datos = $this->_db->query($sql);
             return $datos->fetchall();
         } else {
@@ -190,15 +277,35 @@ class parametrosModel extends Model {
 
     function cargaficha() {
         if ($_POST) {
-            if (!empty($_POST['institucion']) && !empty($_POST['programa'])) {
-                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
-                        . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
-            } else if (!empty($_POST['institucion']) && empty($_POST['programa'])) {
-                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
-                        . "WHERE fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
-            } else if (!empty($_POST['programa']) && empty($_POST['institucion'])) {
-                $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
-                        . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaEstado='A'");
+            $usuario = Session::get('codigo');
+            if (Session::get('perfil') == 'Instructor') {
+                if (!empty($_POST['institucion']) && !empty($_POST['programa'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "INNER JOIN detalleaprendiz ON fichas.fchaId=detalleaprendiz.detIdFicha "
+                            . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                            . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND usuarios.usuId='" . $usuario . "' AND fichas.fchaEstado='A'");
+                } else if (!empty($_POST['institucion']) && empty($_POST['programa'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "INNER JOIN detalleaprendiz ON fichas.fchaId=detalleaprendiz.detIdFicha "
+                            . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                            . "WHERE fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A' AND usuarios.usuId='" . $usuario . "'");
+                } else if (!empty($_POST['programa']) && empty($_POST['institucion'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "INNER JOIN detalleaprendiz ON fichas.fchaId=detalleaprendiz.detIdFicha "
+                            . "INNER JOIN usuarios ON detalleaprendiz.detIdAprendiz=usuarios.usuId "
+                            . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND usuarios.usuId='" . $usuario . "' AND fichas.fchaEstado='A'");
+                }
+            } else {
+                if (!empty($_POST['institucion']) && !empty($_POST['programa'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
+                } else if (!empty($_POST['institucion']) && empty($_POST['programa'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "WHERE fichas.fchaIdInstitucion='" . $_POST['institucion'] . "' AND fichas.fchaEstado='A'");
+                } else if (!empty($_POST['programa']) && empty($_POST['institucion'])) {
+                    $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero FROM fichas "
+                            . "WHERE fichas.fchaIdPrograma='" . $_POST['programa'] . "' AND fichas.fchaEstado='A'");
+                }
             }
             return $sql->fetchall();
         } else {
@@ -292,6 +399,15 @@ class parametrosModel extends Model {
         }
     }
 
+    function programasinstitucion($arg = false) {
+        if ($arg) {
+            $sql = $this->_db->query("SELECT programas.proId, programas.proNombre FROM programas WHERE programas.proInstitucion='" . $arg . "'");
+            return $sql->fetchall();
+        } else {
+            return 0;
+        }
+    }
+
     function oneficha() {
         if ($_POST) {
             $sql = $this->_db->query("SELECT fichas.fchaId, fichas.fchaNumero, fichas.fchaIdPrograma, fichas.fchaIdInstitucion FROM fichas "
@@ -321,9 +437,9 @@ class parametrosModel extends Model {
 
     function setprograma() {
         if ($_POST) {
-            $sql = $this->_db->exec("INSERT INTO programas (proId, proNombre, proEstado) "
-                    . "VALUES ('" . $_POST['txtCodigo'] . "','" . $_POST['txtNombre'] . "','A') "
-                    . "ON DUPLICATE KEY UPDATE proNombre='" . $_POST['txtNombre'] . "'");
+            $sql = $this->_db->exec("INSERT INTO programas (proId, proNombre, proEstado, proInstitucion) "
+                    . "VALUES ('" . $_POST['txtCodigo'] . "','" . $_POST['txtNombre'] . "','A','" . $_POST['txtInstitucion'] . "') "
+                    . "ON DUPLICATE KEY UPDATE proNombre='" . $_POST['txtNombre'] . "', proInstitucion='" . $_POST['txtInstitucion'] . "'");
             return $sql;
         } else {
             return 0;
@@ -332,7 +448,7 @@ class parametrosModel extends Model {
 
     function oneprograma() {
         if ($_POST) {
-            $sql = $this->_db->query("SELECT programas.proId, programas.proNombre FROM programas WHERE programas.proId='" . $_POST['id'] . "'");
+            $sql = $this->_db->query("SELECT programas.proId, programas.proNombre, programas.proInstitucion FROM programas WHERE programas.proId='" . $_POST['id'] . "'");
             return $sql->fetchall();
         } else {
             return 0;
@@ -340,7 +456,9 @@ class parametrosModel extends Model {
     }
 
     function programas() {
-        $sql = $this->_db->query("SELECT programas.proId, programas.proNombre FROM programas WHERE programas.proEstado='A'");
+        $sql = $this->_db->query("SELECT programas.proId, programas.proNombre, instituciones.instNombre FROM programas "
+                . "INNER JOIN instituciones ON programas.proInstitucion=instituciones.instId "
+                . "WHERE programas.proEstado='A'");
         return $sql->fetchall();
     }
 

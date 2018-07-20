@@ -1,6 +1,150 @@
 $(document).ready(function () {
     var host = 'http://localhost/vidar/';
     //var host = 'https://ganadinero.000webhostapp.com/vidar/';
+    $(document).on('click', '#btnEnviarPasswordCuenta', function () {
+        var data = {
+            'password': $('#txtPasswordDatos').val()
+        };
+        cargadivconsulta('MostrarResultadoCuenta', host + 'inicio/validateaccountuser/', data);
+    });
+    $(document).on('click', '#btnEnviarPassword', function () {
+        var data = {
+            'password': $('#txtPasswordDatos').val()
+        };
+        cargadivconsulta('MostrarResultado', host + 'inicio/validateuserdatos/', data);
+    });
+    $(document).on('click', '#btnVerNovedades', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalNovedades').modal('show');
+        cargadivconsulta('contenidoModal', host + 'reportes/carganovedadesaprendices/', data);
+    });
+    $(document).on('click', '#btnGenerarReporteNovedades', function () {
+        var ficha = $('#selFicha').val();
+        var aprendiz = $('#selAprendiz').val();
+        var data = {
+            'ficha': ficha,
+            'aprendiz': aprendiz
+        };
+        cargadivconsulta('CargaReporteNovedades', host + 'reportes/genreportenovedades/', data);
+    });
+    $(document).on('change', '#selInstitucion', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        cargadivconsulta('cargarProgramas', host + 'parametros/cargaprogramas/', data);
+    });
+    $(document).on('change', '#selInstitucion2', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        cargadivconsulta('cargarProgramas2', host + 'procesos/cargaprogramas2/', data);
+    });
+    $(document).on('click', '#btnbuscarUsuariosNovedades', function () {
+        var data = {
+            'id': $('#selFicha').val()
+        };
+        cargadivconsulta('cargarTablaUsuariosNovedades', host + 'procesos/usuariosnovedades/', data);
+    });
+    $(document).on('change', '#cargarNovedades', function () {
+        var data = {
+            'tipo': $(this).val()
+        };
+        cargadivconsulta('mostrarNovedades', host + 'procesos/cargarnovedadespredefinidas/', data);
+    });
+    $(document).on('click', '#btnAgregarAspecto', function () {
+        var data = {
+            'id': ''
+        };
+        cargadivconsulta('vista', host + 'parametros/formularioaspectos/', data);
+    });
+    $(document).on('click', '#btnEditarAspectos', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        cargadivconsulta('vista', host + 'parametros/formularioaspectos/', data);
+    });
+    $(document).on('click', '#btnAgregarReglamento', function () {
+        var data = {
+            'id': ''
+        };
+        cargadivconsulta('vista', host + 'parametros/formularioreglamento/', data);
+    });
+    $(document).on('click', '#btnEditarReglamento', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        cargadivconsulta('vista', host + 'parametros/formularioreglamento/', data);
+    });
+    $(document).on('click', '#btnbuscarComiteFiltro', function () {
+        var data = {
+            'id': $('#selFicha').val()
+        };
+        cargadivconsulta('cargarTablaFiltroComite', host + 'reportes/filtrocomites/', data);
+    });
+    $(document).on('click', '#btnbuscarPlanesMejoramiento', function () {
+        var data = {
+            'id': $('#selFicha').val()
+        };
+        cargadivconsulta('cargarTablaPlanesMejoramiento', host + 'procesos/filtraplanesmejoramiento/', data);
+    });
+    $(document).on('click', '#btnVerDatosPlan', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalplanesMejoramiento').modal('show');
+        cargadivconsulta('contenidoModal', host + 'procesos/verdatosplanmejoramiento/', data);
+    });
+    $(document).on('click', '#btnCalificarPlan', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalplanesMejoramiento').modal('show');
+        cargadivconsulta('contenidoModal', host + 'procesos/calificarplanmejoramiento/', data);
+    });
+    $(document).on('click', '#btnEliminarPlanMejoramiento', function () {
+        var data = {
+            'planid': $(this).val(),
+            'id': $('#txtCodigo').val()
+        };
+        cargadivconsulta('tablaAprendicesplan', host + 'procesos/deletedetalleplan/', data);
+    });
+    $(document).on('change', '#selFicha', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        cargadivconsulta('tablaAprendicesplan', host + 'procesos/cargatablaaprendices/', data);
+        cargadivconsulta('cargaAprendicesInasistencia', host + 'reportes/cargaraprendices/', data);
+    });
+    $(document).on('click', '#btnAgregarPlan', function () {
+        var data = {
+            'id': ''
+        };
+        $('#modalplanesMejoramiento').modal('show');
+        cargadivconsulta('contenidoModal', host + 'procesos/formularioplanmejoramiento/', data);
+    });
+    $(document).on('click', '#btnEditarPlan', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalplanesMejoramiento').modal('show');
+        cargadivconsulta('contenidoModal', host + 'procesos/formularioplanmejoramiento/', data);
+    });
+    $(document).on('click', '#btnInformacionComite', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalComites').modal('show');
+        cargadivconsulta('contenidoModal', host + 'reportes/detallecomite/', data);
+    });
+    $(document).on('click', '#btnPlanMejoramiento', function () {
+        var data = {
+            'id': $(this).val()
+        };
+        $('#modalComites').modal('show');
+        cargadivconsulta('contenidoModal', host + 'reportes/asignarplanmejoramiento/', data);
+    });
     $(document).on('click', '#btnEliminarInstructor', function () {
         var id = $(this).val();
         var ficha = $(this).attr('data-ficha');
@@ -9,6 +153,15 @@ $(document).ready(function () {
             'ficha': ficha
         };
         cargadivconsulta('cargaFichaInstructores', host + 'parametros/setusuariosinstructores/', data);
+    });
+    $(document).on('click', '#btnEliminarAprendiz', function () {
+        var id = $(this).val();
+        var ficha = $(this).attr('data-ficha');
+        var data = {
+            'id': id,
+            'ficha': ficha
+        };
+        cargadivconsulta('cargaFichaAprendices', host + 'parametros/setusuariosaprendiz/', data);
     });
     $(document).on('click', '#btnAsignarUsers', function () {
         var data = {
@@ -58,12 +211,19 @@ $(document).ready(function () {
         var ficha = $('#selFicha').val();
         var fi = $('#fi').val();
         var ff = $('#ff').val();
+        var aprendiz = $('#selAprendiz').val();
         var data = {
             'ficha': ficha,
             'fi': fi,
-            'ff': ff
+            'ff': ff,
+            'aprendiz': aprendiz
         };
         cargadivconsulta('CargaReporte', host + 'reportes/genasistencia/', data);
+    });
+    $(document).on('change', '#checkaprendices', function () {
+        var id = $(this).attr('data-id');
+        $('.seleccione' + id).prop('checked', false);
+        $(this).prop('checked', true);
     });
     $(document).on('change', '#chek2', function () {
         var id = $(this).attr('data-id');
@@ -106,11 +266,25 @@ $(document).ready(function () {
     });
     $(document).on('click', '#btnbuscaraprendices', function () {
         var data = {
-            'ficha': $('#selFicha').val(),
-            'programa': $('#selPrograma').val(),
-            'institucion': $('#selInstitucion').val()
+            'ficha': $('#selFicha').val()
         };
         cargadivconsulta('cargarTablaAprendices', host + 'parametros/tablaaprendices/', data);
+    });
+    $(document).on('change', '#selPrograma2', function () {
+        var data = {
+            'institucion': $('#selInstitucion').val(),
+            'programa': $(this).val()
+
+        };
+        cargadivconsulta('cargafichas2', host + 'parametros/cargarfichas/', data);
+    });
+    $(document).on('change', '#selPrograma', function () {
+        var data = {
+            'institucion': $('#selInstitucion').val(),
+            'programa': $(this).val()
+
+        };
+        cargadivconsulta('cargafichas', host + 'parametros/cargarfichas/', data);
     });
     $(document).on('change', '#selPrograma', function () {
         var data = {

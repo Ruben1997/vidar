@@ -2,7 +2,7 @@
 <script src="<?php echo COMMON; ?>js/datatable.js"></script>
 <section class="content-header">
     <h1>
-        Nuestro voluntariado
+        <?php echo SUB_NAME; ?>
         <small>Administracion</small>
     </h1>
     <ol class="breadcrumb">
@@ -66,7 +66,15 @@
                                             </table>
                                         </td>
                                         <td class="text-center">
-                                                <button class="btn btn-success" value="<?php echo $this->comites[$i]['comId']; ?>" id="btnAgendar"><span class="glyphicon glyphicon-check"></span></button>
+                                            <?php if ($this->comites[$i]['comEstado'] == 'Pendiente') { ?>
+                                                <button class="btn btn-success" value="<?php echo $this->comites[$i]['comId']; ?>" id="btnAgendar">
+                                                    <span class="glyphicon glyphicon-check"></span>
+                                                </button>
+                                            <?php } else if ($this->comites[$i]['comEstado'] == 'Programado') { ?>
+                                                <button class="btn btn-warning" value="<?php echo $this->comites[$i]['comId']; ?>" id="btnAgendar">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </button>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php endfor; ?>

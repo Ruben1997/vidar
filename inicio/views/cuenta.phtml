@@ -1,0 +1,40 @@
+<!-- Content Header (Page header) -->
+<script src='<?php echo COMMON; ?>js/validar.js'></script>
+<section class="content-header">
+    <h1>
+        Vidar
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Modificar contraseña</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Digite su contraseña actual</label>
+                            <input type="password" class="form-control" id="txtPasswordDatos">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" id="btnEnviarPasswordCuenta">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div id="MostrarResultadoCuenta"></div>
+        </div>
+    </div>
+</section>

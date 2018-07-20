@@ -2,7 +2,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Nuestro voluntariado
+        <?php echo SUB_NAME; ?>
         <small>Administracion</small>
     </h1>
     <ol class="breadcrumb">
@@ -36,12 +36,11 @@
                             <label>
                                 Programa
                             </label>
-                            <select id="selPrograma" class="form-control">
-                                <option disabled selected>--Seleccione--</option>
-                                <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
-                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
-                                <?php } ?>
-                            </select>
+                            <div id="cargarProgramas">
+                                <select id="selPrograma" class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <label>

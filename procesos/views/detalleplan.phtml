@@ -1,0 +1,83 @@
+<?php
+$con = 0;
+?>
+<!-- general form elements -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Informacion plan de mejoramiento</h3>
+    </div>
+    <div class="box-body">
+        <?php if ($this->datos[0]['planEstado'] == 'Entregado') { ?>
+            <div class="alert alert-success" role="alert">Plan de mejoramiento finalizado</div>
+        <?php } else if ($this->datos[0]['planEstado'] == 'Cancelado') { ?>
+            <div class="alert alert-danger" role="alert">Plan de mejoramiento cancelado</div>
+        <?php } ?>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Fecha solicitud</label>
+            <input type="text" disabled placeholder="yyyy/mm/dd" value="<?php echo $this->datos[0]['planFecha']; ?>" id="txtFechallamado" class="form-control datepicker" name="txtFecha">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Fecha plazo entrega</label>
+            <input type="text" disabled placeholder="yyyy/mm/dd" value="<?php echo $this->datos[0]['planPlazoEntrega']; ?>" id="txtFechallamado" class="form-control datepicker" name="txtFecha">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Descripcion actividad</label>
+            <textarea disabled class="form-control" name="txtDescripcionActividad"><?php echo $this->datos[0]['planDescripcionActividad']; ?></textarea>
+        </div>
+        <div id="tablaAprendicesplan">
+            <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th id="tr1" class="text-center">A</th>
+                        <th id="tr2" class="text-center">N</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i = 0; $i < count($this->datos[0]['aprendices']); $i++): ?>
+                        <tr>
+                            <td><?php echo $i + 1; ?></td>
+                            <td><?php echo $this->datos[0]['aprendices'][$i]['usuTipoDocu']; ?></td>
+                            <td><?php echo $this->datos[0]['aprendices'][$i]['usuDocumento']; ?></td>
+                            <td><?php echo ucwords(strtolower($this->datos[0]['aprendices'][$i]['usuNombre'])); ?></td>
+                            <td><?php echo ucwords(strtolower($this->datos[0]['aprendices'][$i]['usuApellido'])); ?></td>
+                            <?php if (!empty($this->datos[0]['aprendices'][$i]['detPlanNota'])) { ?>
+                                <?php if ($this->datos[0]['aprendices'][$i]['detPlanNota'] == 'A') { ?>
+                                    <?php $con++; ?>
+                                    <td class="text-center">
+                                        <input checked type="checkbox">
+                                    </td>
+                                    <td class="text-center">
+                                        <input disabled type="checkbox">
+                                    </td>
+                                <?php } else { ?>
+                                    <td class="text-center">
+                                        <input disabled type="checkbox">
+                                    </td>
+                                    <td class="text-center">
+                                        <input checked type="checkbox">
+                                    </td>
+                                <?php } ?>
+                            <?php } ?>
+                        </tr>
+                    <?php endfor; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer">
+        <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+    </div>
+</div>
+<script>
+<?php if ($con == 0) { ?>
+        $('#tr1').remove();
+        $('#tr2').remove();
+<?php } ?>
+</script>
+
+

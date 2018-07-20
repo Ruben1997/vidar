@@ -1,0 +1,87 @@
+<!-- Content Header (Page header) -->
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<section class="content-header">
+    <h1>
+        <?php echo SUB_NAME; ?>
+        <small>Administracion</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> <?php echo $this->metodo; ?></a></li>
+        <li class="active"><?php echo $this->metodoaccion; ?></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid" id="vista">
+        <div class="row">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Reglamento Aprendiz</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <button style="margin-bottom: 15px;" type="button" id="btnAgregarReglamento" class="btn btn-primary">Agregar</button>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="example">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Descripcion</th>
+                                    <th>Codigo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php for ($i = 0; $i < count($this->reglamento); $i++): ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td> 
+                                        <td><?php echo $this->reglamento[$i]['debDescripcion']; ?></td>
+                                        <td><?php echo $this->reglamento[$i]['debCodigoReglamento']; ?></td>
+                                        <td class="text-center">
+                                            <button value="<?php echo $this->reglamento[$i]['debId']; ?>" class="btn btn-warning" id="btnEditarReglamento">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                            <button data-id="<?php echo $this->reglamento[$i]['debId']; ?>" data-nom="<?php echo $this->reglamento[$i]['debCodigoReglamento']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#modalReglamento">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endfor; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="modalReglamento" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">Mensaje de confirmacion<button class="close" data-dismiss="modal">&times;</button></div>
+                <div class="modal-body">
+                    <h3>¿Esta seguro que desea eliminar este deber?</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-warning" id="enviar">Si</a>
+                    <a href="#" class="btn btn-danger" data-dismiss="modal">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        var host = 'http://localhost/vidar/';
+        //var host = 'https://ganadinero.000webhostapp.com/vidar/';
+        $('#modalReglamento').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var recipent = button.data('id')
+            var nom = button.data('nom')
+            var modal = $(this);
+            modal.find('h3').text('¿Esta seguro que desea eliminar este deber: ' + nom + '?');
+            modal.find('#enviar').attr('href', host + 'parametros/bajareglamento/' + recipent);
+        });
+    });
+</script>
+

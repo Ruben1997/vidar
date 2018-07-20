@@ -1,0 +1,55 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"><?php echo $this->accion; ?></h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" enctype="multipart/form-data" method="post" action="<?php echo RUTA_URL . 'parametros/setaspecto'; ?>">
+            <div class="box-body">
+                <input type="hidden" name="txtCodigo" value="<?php echo $this->datos[0]['novpId']; ?>">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Descripcion aspecto o falta</label>
+                    <textarea class="form-control" name="txtDescripcion"><?php echo $this->datos[0]['novpNovedad']; ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Deber</label>
+                    <select class="form-control" name="txtDeber">
+                        <option disabled selected>--Seleccione--</option>
+                        <?php for ($i = 0; $i < count($this->reglamento); $i++) { ?>
+                            <?php if ($this->reglamento[$i]['debId'] == $this->datos[0]['novpIdDeber']) { ?>
+                                <option selected value="<?php echo $this->reglamento[$i]['debId']; ?>"><?php echo $this->reglamento[$i]['debCodigoReglamento'] . '-' . $this->reglamento[$i]['debDescripcion']; ?></option>
+                            <?php } else { ?>
+                                <option value="<?php echo $this->reglamento[$i]['debId']; ?>"><?php echo $this->reglamento[$i]['debCodigoReglamento'] . '-' . $this->reglamento[$i]['debDescripcion']; ?></option>
+                            <?php } ?>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tipo novedad</label>
+                    <select class="form-control" name="txtTipo">
+                        <option disabled selected>--Seleccione--</option>
+                        <?php if ($this->datos[0]['novpTipo'] == 'Academica') { ?>
+                            <option selected value="Academica">Academica</option>
+                            <option value="Disciplinaria">Disciplinaria</option>
+                        <?php } else if ($this->datos[0]['novpTipo'] == 'Disciplinaria') { ?>
+                            <option value="Academica">Academica</option>
+                            <option selected value="Disciplinaria">Disciplinaria</option>
+                        <?php } else { ?>
+                            <option value="Academica">Academica</option>
+                            <option value="Disciplinaria">Disciplinaria</option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="<?php echo RUTA_URL . 'parametros/faltasyaspectos'; ?>" class="btn btn-danger">volver</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-3"></div>

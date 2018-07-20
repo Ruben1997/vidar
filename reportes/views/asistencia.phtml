@@ -2,7 +2,7 @@
 <?php $fecha = date("Y"); ?>
 <section class="content-header">
     <h1>
-        Nuestro voluntariado
+        <?php echo SUB_NAME; ?>
         <small>Administracion</small>
     </h1>
     <ol class="breadcrumb">
@@ -36,12 +36,11 @@
                             <label>
                                 Programa
                             </label>
-                            <select id="selPrograma" class="form-control">
-                                <option disabled selected>--Seleccione--</option>
-                                <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
-                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
-                                <?php } ?>
-                            </select>
+                            <div id="cargarProgramas">
+                                <select id="selPrograma" class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <label>
@@ -54,7 +53,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            
+                            <label>
+                                Aprendices
+                            </label>
+                            <div id="cargaAprendicesInasistencia">
+                                <select class="form-control">
+                                    <option disabled selected>--Seleccione--</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -64,19 +70,19 @@
                             </label>
                             <div>
                                 <select class="form-control" name="txtFechaI" id="fi">
-                                    <option disabled selected>--Seleccine--</option>
-                                    <option value="<?php echo $fecha.'-01-01'; ?>">Enero</option>
-                                    <option value="<?php echo $fecha.'-02-01'; ?>">Febrero</option>
-                                    <option value="<?php echo $fecha.'-03-01'; ?>">Marzo</option>
-                                    <option value="<?php echo $fecha.'-04-01'; ?>">Abril</option>
-                                    <option value="<?php echo $fecha.'-05-01'; ?>">Mayo</option>
-                                    <option value="<?php echo $fecha.'-06-01'; ?>">Junio</option>
-                                    <option value="<?php echo $fecha.'-07-01'; ?>">Julio</option>
-                                    <option value="<?php echo $fecha.'-08-01'; ?>">Agosto</option>
-                                    <option value="<?php echo $fecha.'-09-01'; ?>">Septiembre</option>
-                                    <option value="<?php echo $fecha.'-10-01'; ?>">Octubre</option>
-                                    <option value="<?php echo $fecha.'-11-01'; ?>">Noviembre</option>
-                                    <option value="<?php echo $fecha.'-12-01'; ?>">Diciembre</option>
+                                    <option disabled selected>--Seleccione--</option>
+                                    <option value="<?php echo $fecha . '-01-01'; ?>">Enero</option>
+                                    <option value="<?php echo $fecha . '-02-01'; ?>">Febrero</option>
+                                    <option value="<?php echo $fecha . '-03-01'; ?>">Marzo</option>
+                                    <option value="<?php echo $fecha . '-04-01'; ?>">Abril</option>
+                                    <option value="<?php echo $fecha . '-05-01'; ?>">Mayo</option>
+                                    <option value="<?php echo $fecha . '-06-01'; ?>">Junio</option>
+                                    <option value="<?php echo $fecha . '-07-01'; ?>">Julio</option>
+                                    <option value="<?php echo $fecha . '-08-01'; ?>">Agosto</option>
+                                    <option value="<?php echo $fecha . '-09-01'; ?>">Septiembre</option>
+                                    <option value="<?php echo $fecha . '-10-01'; ?>">Octubre</option>
+                                    <option value="<?php echo $fecha . '-11-01'; ?>">Noviembre</option>
+                                    <option value="<?php echo $fecha . '-12-01'; ?>">Diciembre</option>
                                 </select>
                             </div>
                         </div>
@@ -86,19 +92,19 @@
                             </label>
                             <div>
                                 <select class="form-control" name="txtFechaF" id="ff">
-                                    <option disabled selected>--Seleccine--</option>
-                                    <option value="<?php echo $fecha.'-01-31'; ?>">Enero</option>
-                                    <option value="<?php echo $fecha.'-02-31'; ?>">Febrero</option>
-                                    <option value="<?php echo $fecha.'-03-31'; ?>">Marzo</option>
-                                    <option value="<?php echo $fecha.'-04-31'; ?>">Abril</option>
-                                    <option value="<?php echo $fecha.'-05-31'; ?>">Mayo</option>
-                                    <option value="<?php echo $fecha.'-06-31'; ?>">Junio</option>
-                                    <option value="<?php echo $fecha.'-07-31'; ?>">Julio</option>
-                                    <option value="<?php echo $fecha.'-08-31'; ?>">Agosto</option>
-                                    <option value="<?php echo $fecha.'-09-31'; ?>">Septiembre</option>
-                                    <option value="<?php echo $fecha.'-10-31'; ?>">Octubre</option>
-                                    <option value="<?php echo $fecha.'-11-31'; ?>">Noviembre</option>
-                                    <option value="<?php echo $fecha.'-12-31'; ?>">Diciembre</option>
+                                    <option disabled selected>--Seleccione--</option>
+                                    <option value="<?php echo $fecha . '-01-31'; ?>">Enero</option>
+                                    <option value="<?php echo $fecha . '-02-31'; ?>">Febrero</option>
+                                    <option value="<?php echo $fecha . '-03-31'; ?>">Marzo</option>
+                                    <option value="<?php echo $fecha . '-04-31'; ?>">Abril</option>
+                                    <option value="<?php echo $fecha . '-05-31'; ?>">Mayo</option>
+                                    <option value="<?php echo $fecha . '-06-31'; ?>">Junio</option>
+                                    <option value="<?php echo $fecha . '-07-31'; ?>">Julio</option>
+                                    <option value="<?php echo $fecha . '-08-31'; ?>">Agosto</option>
+                                    <option value="<?php echo $fecha . '-09-31'; ?>">Septiembre</option>
+                                    <option value="<?php echo $fecha . '-10-31'; ?>">Octubre</option>
+                                    <option value="<?php echo $fecha . '-11-31'; ?>">Noviembre</option>
+                                    <option value="<?php echo $fecha . '-12-31'; ?>">Diciembre</option>
                                 </select>
                             </div>
                         </div>

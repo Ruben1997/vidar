@@ -2,7 +2,7 @@
 <script src="<?php echo COMMON; ?>js/datatable.js"></script>
 <section class="content-header">
     <h1>
-        Nuestro voluntariado
+        <?php echo SUB_NAME; ?>
         <small>Administracion</small>
     </h1>
     <ol class="breadcrumb">
@@ -28,6 +28,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Programa</th>
+                                    <th>Institucion</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                     <tr>
                                         <td><?php echo $i + 1; ?></td> 
                                         <td><?php echo ucwords(strtolower($this->programas[$i]['proNombre'])); ?></td>
+                                        <td><?php echo ucwords(strtolower($this->programas[$i]['instNombre'])); ?></td>
                                         <td class="text-center">
                                             <button value="<?php echo $this->programas[$i]['proId']; ?>" class="btn btn-warning" id="btnEditarProgramas">
                                                 <span class="glyphicon glyphicon-edit"></span>

@@ -1,0 +1,66 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="example2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fecha Solicitud</th>
+                <th style="width: 80px;">Fecha Plazo</th>
+                <th>Actividad</th>
+                <th>Solicitante</th>
+                <th>Aprendices</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->planes); $i++) { ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td>
+                    <td><?php echo $this->planes[$i]['planFecha']; ?></td>
+                    <td><?php echo $this->planes[$i]['planPlazoEntrega']; ?></td>
+                    <td><?php echo $this->planes[$i]['planDescripcionActividad']; ?></td>
+                    <td><?php echo ucwords(strtolower($this->planes[$i]['usuNombre'] . ' ' . $this->planes[$i]['usuApellido'])); ?></td>
+                    <td>
+                        <table>
+                            <?php for ($j = 0; $j < count($this->planes[$i]['aprendices']); $j++) { ?>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-play"></span> <?php echo ucwords(strtolower($this->planes[$i]['aprendices'][$j]['usuNombre'] . ' ' . $this->planes[$i]['aprendices'][$j]['usuApellido'])); ?></td>
+                                </tr>
+                            <?php } ?>
+                        </table>
+                    </td>
+                    <td style="width: 150px;" class="text-center">
+                        <?php if ($this->planes[$i]['planEstado'] == 'Pendiente') { ?>
+                            <button id="btnCalificarPlan" value="<?php echo $this->planes[$i]['planId']; ?>" class="btn btn-success">
+                                <span class="glyphicon glyphicon-check"></span>
+                            </button>
+                            <button data-toggle="modal" data-target="#modalEliminarPlanes" data-id="<?php echo $this->planes[$i]['planId']; ?>" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button id="btnEditarPlan" value="<?php echo $this->planes[$i]['planId']; ?>" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        <?php } else { ?>
+                            <button class="btn btn-primary" value="<?php echo $this->planes[$i]['planId']; ?>" id="btnVerDatosPlan">
+                                <span class="glyphicon glyphicon-list-alt"></span>
+                            </button>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example2').dataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            oLanguage: {
+                "sSearch": "Buscar:"
+            }
+        });
+    });
+</script>
+

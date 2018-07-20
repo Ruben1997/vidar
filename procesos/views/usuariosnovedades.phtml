@@ -1,0 +1,54 @@
+<script src="<?php echo COMMON; ?>js/datatable.js"></script>
+<form method="post" action="<?php echo RUTA_URL . 'procesos/setnovedad'; ?>">
+    <input type="hidden" name="txtCodigoFicha" value="<?php echo $this->ficha; ?>">
+    <div class="form-group">
+        <label>
+            Seleccione tipo de novedad
+        </label>
+        <select name="txtTipoNovedad" id="cargarNovedades" style="width: 120px;" class="form-control">
+            <option disabled selected>--Seleccione--</option>
+            <option value="Academica">Academica</option>
+            <option value="Disciplinaria">Disciplinaria</option>
+        </select>
+    </div>
+    <div id="mostrarNovedades"></div>
+    <div class="form-group" style="margin-top: 20px;">
+        <label>
+            Descripcion Novedad
+        </label>
+        <textarea name="txtDescripcionNovedad" class="form-control"></textarea>
+    </div>
+    <label class="form-control" style="width: 180px; margin-top: 20px;">
+        Aprendices
+    </label>
+    <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                    <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                    <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                    <td class="text-center">
+                        <input name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId']; ?>">
+                    </td>
+                </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+    <div class="form-group" style="margin-top: 20px;">
+        <input type="submit" class="btn btn-primary" value="Guardar">
+    </div>
+</form>
+

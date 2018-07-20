@@ -1,0 +1,37 @@
+<table class="table-bordered table table-condensed table-responsive table-hover" id="example2">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tipo</th>
+            <th>Documento</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php for ($i = 0; $i < count($this->aprendices); $i++): ?>
+            <tr>
+                <td><?php echo $i + 1; ?></td>
+                <td><?php echo $this->aprendices[$i]['usuTipoDocu']; ?></td>
+                <td><?php echo $this->aprendices[$i]['usuDocumento']; ?></td>
+                <td><?php echo ucwords(strtolower($this->aprendices[$i]['usuNombre'])); ?></td>
+                <td><?php echo ucwords(strtolower($this->aprendices[$i]['usuApellido'])); ?></td>
+                <td><?php echo $this->aprendices[$i]['usuCorreo']; ?></td>
+                <td><?php echo $this->aprendices[$i]['usuTelefono']; ?></td>
+                <td class="text-center">
+                    <?php if ($this->aprendices[$i]['estado'] == 'A') { ?>
+                        <input type="hidden" name="txtCodigoAprendiz[]" value="<?php echo $this->aprendices[$i]['detId']; ?>">
+                        <input checked name="txtAprendiz[]" type="checkbox" value="<?php echo $this->aprendices[$i]['usuId']; ?>">
+                        <button type="button" class="close" data-ficha="<?php echo $this->ficha; ?>" id="btnEliminarAprendiz" value="<?php echo $this->aprendices[$i]['detId']; ?>">&times;</button>
+                    <?php } else { ?>
+                        <input type="hidden" name="txtCodigoAprendiz[]" value="">
+                        <input name="txtAprendiz[]" type="checkbox" value="<?php echo $this->aprendices[$i]['usuId']; ?>">
+                    <?php } ?>
+                </td>
+            </tr>
+        <?php endfor; ?>
+    </tbody>
+</table>

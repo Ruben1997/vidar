@@ -1,0 +1,27 @@
+<table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tipo</th>
+            <th>Documento</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+            <tr>
+                <td><?php echo $i + 1; ?></td>
+                <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                <td class="text-center">
+                    <input type="hidden" name="txtCodigoAprendiz[]">
+                    <input name="txtAprendiz[]" type="checkbox" value="<?php echo $this->usuarios[$i]['usuId']; ?>">
+                </td>
+            </tr>
+        <?php endfor; ?>
+    </tbody>
+</table>

@@ -12,24 +12,11 @@
                 <input type="hidden" name="txtCodigo" value="<?php echo $this->datos[0]['fchaId']; ?>">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Ficha</label>
-                    <input name="txtNumero" type="text" value="<?php echo $this->datos[0]['fchaNumero']; ?>" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Programa</label>
-                    <select class="form-control" name="txtPrograma">
-                        <option disabled selected>--Seleccione--</option>
-                        <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
-                            <?php if ($this->programas[$i]['proId'] == $this->datos[0]['fchaIdPrograma']) { ?>
-                                <option selected value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
-                            <?php } else { ?>
-                                <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
-                            <?php } ?>
-                        <?php } ?>
-                    </select>
+                    <input name="txtNumero" type="text" value="<?php echo $this->datos[0]['fchaNumero']; ?>" class="form-control" id="exampleInputEmail1" placeholder="Numero">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Institucion</label>
-                    <select name="txtInstitucion" class="form-control">
+                    <select id="selInstitucion" name="txtInstitucion" class="form-control">
                         <option disabled selected>--Seleccione--</option>
                         <?php for ($i = 0; $i < count($this->instituciones); $i++) { ?>
                             <?php if ($this->instituciones[$i]['instId'] == $this->datos[0]['fchaIdInstitucion']) { ?>
@@ -39,6 +26,21 @@
                             <?php } ?>
                         <?php } ?>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Programa</label>
+                    <div id="cargarProgramas">
+                        <select name="txtPrograma" id="selPrograma" class="form-control">
+                            <option disabled selected>--Seleccione--</option>
+                            <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
+                                <?php if ($this->programas[$i]['proId'] == $this->datos[0]['fchaIdPrograma']) { ?>
+                                    <option value="<?php echo $this->programas[$i]['proId']; ?>" selected><?php echo $this->programas[$i]['proNombre']; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </div>
                 </div>
             </div>
             <!-- /.box-body -->

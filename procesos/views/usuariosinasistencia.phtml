@@ -1,5 +1,18 @@
 <script src="<?php echo COMMON; ?>js/datatable.js"></script>
 <form id="formAsignar" method="post" action="<?php echo RUTA_URL . 'procesos/setinasistencia'; ?>">
+    <div class="form-group">
+        <label>Digite horas inasistencia</label>
+        <table>
+            <tr>
+                <?php if (count($this->horas) > 0) { ?>
+                    <td><input type="number" value="<?php echo $this->horas[0]['asisRegHoras']; ?>" class="form-control" name="txtHoras" id="btnHoras" style="width: 120px;"></td>
+                <?php } else { ?>
+                    <td><input type="number" class="form-control" name="txtHoras" id="btnHoras" style="width: 120px;"></td>
+                <?php } ?>
+                <td><label style="margin-left:15px;">Horas</label></td>
+            </tr>
+        </table>
+    </div>
     <input type="hidden" name="txtFichaCodigo" value="<?php echo $this->ficha; ?>">
     <button id="btnGuardarUsuariosAsignar" style="margin-top: 20px; margin-bottom: 20px;" type="button" class="btn btn-primary">Guardar</button>
     <table class="table-bordered table table-condensed table-responsive table-hover" id="example">

@@ -42,7 +42,7 @@ class Session {
             exit;
         }
 
-        if (Session::getLevel($level) > Session::getLevel(Session::get('level'))) {
+        if (Session::getLevel($level) > Session::getLevel(Session::get('perfil'))) {
             header('location:' . RUTA_URL . 'error/access/5050');
             exit;
         }
@@ -53,8 +53,7 @@ class Session {
         if (!Session::get('autenticado')) {
             return FALSE;
         }
-        Session::tiempo();
-        if (Session::getLevel($level) > Session::getLevel(Session::get('level'))) {
+        if (Session::getLevel($level) > Session::getLevel(Session::get('perfil'))) {
             return FALSE;
         }
 
@@ -62,8 +61,9 @@ class Session {
     }
 
     public static function getLevel($level) {
-        $rol['Usuario'] = 2;
-        $rol['Admin'] = 1;
+        $rol['Coordinador Academico'] = 3;
+        $rol['Instructor'] = 2;
+        $rol['Administrador'] = 1;
 
         if (array_key_exists($level, $rol)) {
             return $rol[$level];
@@ -77,15 +77,14 @@ class Session {
             header('location:' . RUTA_URL . 'error/access/5050');
             exit;
         }
-        Session::tiempo();
         if ($noAdmin == false) {
-            if (Session::get('level') == 'admin') {
+            if (Session::get('perfil') == 'Administrador') {
                 return;
             }
         }
 
         if (count($level)) {
-            if (in_array(Session::get('level'), $level)) {
+            if (in_array(Session::get('perfil'), $level)) {
                 return;
             }
         }
@@ -97,38 +96,19 @@ class Session {
         if (!Session::get('autenticado')) {
             return false;
         }
-        Session::tiempo();
         if ($noAdmin == false) {
-            if (Session::get('level') == 'admin') {
+            if (Session::get('perfil') == 'Administrador') {
                 return true;
             }
         }
 
         if (count($level)) {
-            if (in_array(Session::get('level'), $level)) {
+            if (in_array(Session::get('perfil'), $level)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    public static function tiempo() {
-
-        if ((!Session::get('tiempo')) || (!defined('SESSION_TIME'))) {
-            throw new Exception('No se ha definido el timpo de sesion');
-        }
-
-        if (SESSION_TIME == 0) {
-            return;
-        }
-
-        if ((time() - Session::get('tiempo')) > (SESSION_TIME * 60)) {
-            Session::destroy();
-            header('location:' . RUTA_URL . 'error/access/8080');
-        } else {
-            Session::set('tiempo', time());
-        }
     }
 
 }

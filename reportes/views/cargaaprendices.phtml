@@ -1,0 +1,12 @@
+<select class="form-control selectpicker" id="selAprendiz" data-live-search="true">
+    <option disabled selected>--Seleccione--</option>
+    <?php for ($i = 0; $i < count($this->aprendices); $i++) { ?>
+        <option value="<?php echo $this->aprendices[$i]['usuId']; ?>"><?php echo $this->aprendices[$i]['usuDocumento'] . ' ' . ucwords(strtolower($this->aprendices[$i]['usuNombre'] . ' ' . $this->aprendices[$i]['usuApellido'])); ?></option>
+    <?php } ?>
+</select>
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker({
+        });
+    });
+</script>

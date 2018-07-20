@@ -18,8 +18,145 @@ class parametrosController extends Controller {
         parent::__construct("parametros");
     }
 
+    public function cargaprogramas() {
+        $data = $this->loadModel('parametros');
+        $this->_view->programas = $data->cargaprogramas();
+        $this->_view->renderizar('cargaprogramas', 'blank');
+    }
+
+    public function bajaaspectos($argum = false) {
+        $data = $this->loadModel('parametros');
+        $sql = $data->bajaaspectos($argum);
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/faltasyaspectos');
+        exit();
+    }
+
+    public function setaspecto() {
+        $data = $this->loadModel('parametros');
+        $sql = $data->setapecto();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/faltasyaspectos');
+        exit();
+    }
+
+    public function formularioaspectos() {
+        $data = $this->loadModel('parametros');
+        $this->_view->reglamento = $data->listareglamento();
+        if (!empty($_POST['id'])) {
+            $this->_view->datos = $data->oneaspecto();
+            $this->_view->accion = 'Editar faltas y aspectos positivos';
+        } else {
+            $this->_view->datos = array(3);
+            $this->_view->accion = 'Agregar faltas y aspectos positivos';
+        }
+        $this->_view->renderizar('formularioaspectos', 'blank');
+    }
+
+    public function faltasyaspectos() {
+        Session::accesoEstricto(array('Administrador', 'Instructor'), true);
+        $data = $this->loadModel('parametros');
+        @$layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Faltas y aspectos positivos';
+        $this->_view->metodo = "Parametros";
+        $this->_view->metodoaccion = 'Faltas y aspectos positivos';
+        $this->_view->aspectos = $data->aspectospositivos();
+        $this->_view->renderizar('aspectos', 'vidar', $layout);
+    }
+
+    public function bajareglamento($argum = false) {
+        $data = $this->loadModel('parametros');
+        $sql = $data->bajareglamentos($argum);
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/reglamentoaprendiz');
+        exit();
+    }
+
+    public function setreglamento() {
+        $data = $this->loadModel('parametros');
+        $sql = $data->setreglamento();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/reglamentoaprendiz');
+        exit();
+    }
+
+    public function formularioreglamento() {
+        $data = $this->loadModel('parametros');
+        if (!empty($_POST['id'])) {
+            $this->_view->datos = $data->onereglamento();
+            $this->_view->accion = 'Editar Deber';
+        } else {
+            $this->_view->datos = array(3);
+            $this->_view->accion = 'Agregar Deber';
+        }
+        $this->_view->renderizar('formularioreglamento', 'blank');
+    }
+
+    public function reglamentoaprendiz() {
+        Session::acceso('Administrador');
+        $data = $this->loadModel('parametros');
+        @$layout = $this->layout($_POST['val']);
+        $this->_view->titulo = 'Reglamento Aprendiz';
+        $this->_view->metodo = "Parametros";
+        $this->_view->metodoaccion = 'Reglamento Aprendiz';
+        $this->_view->reglamento = $data->listareglamento();
+        $this->_view->renderizar('reglamento', 'vidar', $layout);
+    }
+
+    public function setusuariosfichas() {
+        $data = $this->loadModel('parametros');
+        $sql = $data->setusuariosfichas();
+        if ($sql) {
+            Session::set('mensaje', 'Operacion exitosa');
+            Session::set('tipomensaje', 'alert-success');
+        } else {
+            Session::set('mensaje', 'Error en el proceso');
+            Session::set('tipomensaje', 'alert-danger');
+        }
+        $this->redireccionar('parametros/fichas');
+        exit();
+    }
+
     public function setusuariosinstructores() {
         $data = $this->loadModel('parametros');
+        $sql = $data->bajadetalleusuario();
+        if ($sql) {
+            $this->_view->instructores = $data->instructoresfichas();
+            $this->_view->renderizar('tablainstructores', 'blank');
+        }
+    }
+
+    public function setusuariosaprendiz() {
+        $data = $this->loadModel('parametros');
+        $sql = $data->bajadetalleusuario();
+        if ($sql) {
+            $this->_view->aprendices = $data->aprendicesfichas();
+            $this->_view->renderizar('tablaaprendices', 'blank');
+        }
     }
 
     public function usuariosasignadosfichas() {
@@ -47,13 +184,14 @@ class parametrosController extends Controller {
     public function formularioactas() {
         $data = $this->loadModel('parametros');
         $this->_view->instituciones = $data->instituciones();
-        $this->_view->programas = $data->programas();
         if (!empty($_POST['id'])) {
             $this->_view->datos = $data->oneacta();
             $datos = $data->oneacta();
+            $this->_view->programas = $data->programasinstitucion($datos[0]['instId']);
             $this->_view->fichas = $data->fichasactas($datos[0]['proId'], $datos[0]['instId']);
             $this->_view->accion = 'Editar Actas';
         } else {
+            $this->_view->programas = array();
             $this->_view->fichas = array();
             $this->_view->datos = array(7);
             $this->_view->accion = 'Agregar Actas';
@@ -81,6 +219,7 @@ class parametrosController extends Controller {
     }
 
     public function actasequipo() {
+        Session::accesoEstricto(array('Administrador', 'Instructor', 'Coordinador Academico'), true);
         $data = $this->loadModel('parametros');
         @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Actas';
@@ -143,6 +282,7 @@ class parametrosController extends Controller {
     }
 
     public function aprendices() {
+        Session::accesoEstricto(array('Administrador', 'Instructor'), true);
         $data = $this->loadModel('parametros');
         @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Aprendices';
@@ -150,7 +290,6 @@ class parametrosController extends Controller {
         $this->_view->metodoaccion = 'Aprendices';
         $this->_view->usuarios = $data->aprendices();
         $this->_view->instituciones = $data->instituciones();
-        $this->_view->programas = $data->programas();
         $this->_view->renderizar('aprendices', 'vidar', $layout);
     }
 
@@ -184,12 +323,14 @@ class parametrosController extends Controller {
 
     public function formulariofichas() {
         $data = $this->loadModel('parametros');
-        $this->_view->programas = $data->programas();
         $this->_view->instituciones = $data->instituciones();
         if (!empty($_POST['id'])) {
+            $sql = $data->oneficha();
+            $this->_view->programas = $data->programasinstitucion($sql[0]['fchaIdInstitucion']);
             $this->_view->datos = $data->oneficha();
             $this->_view->accion = 'Editar Fichas';
         } else {
+            $this->_view->programas = array();
             $this->_view->datos = array(4);
             $this->_view->accion = 'Agregar Fichas';
         }
@@ -197,6 +338,7 @@ class parametrosController extends Controller {
     }
 
     public function fichas() {
+        Session::accesoEstricto(array('Administrador', 'Instructor'), true);
         $data = $this->loadModel('parametros');
         @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Fichas';
@@ -236,6 +378,7 @@ class parametrosController extends Controller {
 
     public function formularioprogramas() {
         $data = $this->loadModel('parametros');
+        $this->_view->instituciones = $data->instituciones();
         if (!empty($_POST['id'])) {
             $this->_view->accion = 'Editar Programas';
             $this->_view->datos = $data->oneprograma();
@@ -247,6 +390,7 @@ class parametrosController extends Controller {
     }
 
     public function programas() {
+        Session::acceso('Administrador');
         $data = $this->loadModel('parametros');
         @$layout = $this->layout($_POST['val']);
         $this->_view->titulo = 'Programas';
@@ -315,6 +459,7 @@ class parametrosController extends Controller {
     }
 
     public function institucion() {
+        Session::acceso('Administrador');
         $data = $this->loadModel('parametros');
         @$layout = $this->layout($_POST['val']);
         $this->_view->instituciones = $data->instituciones();

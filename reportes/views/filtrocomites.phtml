@@ -1,0 +1,69 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="example2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fecha Solicitud</th>
+                <th>Acta</th>
+                <th>Solicita</th>
+                <th>Fecha Comite</th>
+                <th>Hora Comite</th>
+                <th>Aprendices</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php for ($i = 0; $i < count($this->comites); $i++): ?>
+                <tr>
+                    <td><?php echo $i + 1; ?></td> 
+                    <td><?php echo $this->comites[$i]['comFechaSolicitud']; ?></td>
+                    <td><a href="<?php echo $this->comites[$i]['actRuta']; ?>" target="_blank">Acta No <?php echo $this->comites[$i]['actNumero']; ?></a></td>
+                    <td><?php echo ucwords(strtolower($this->comites[$i]['usuNombre'] . ' ' . $this->comites[$i]['usuApellido'])); ?></td>
+                    <td>
+                        <?php if (!empty($this->comites[$i]['comFechaComite'])) { ?>
+                            <?php echo $this->comites[$i]['comFechaComite']; ?>
+                        <?php } else { ?>
+                            Por definir
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($this->comites[$i]['comHoraComite'])) { ?>
+                            <?php echo $this->comites[$i]['comHoraComite']; ?>
+                        <?php } else { ?>
+                            Por definir
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <table>
+                            <?php for ($j = 0; $j < count($this->comites[$i]['aprendices']); $j++) { ?>
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-play"></span> <?php echo ucwords(strtolower($this->comites[$i]['aprendices'][$j]['aprendizusuNombre'] . ' ' . $this->comites[$i]['aprendices'][$j]['aprendizusuApellido'])) . ' (' . $this->comites[$i]['aprendices'][$j]['fchaNumero'] . ')'; ?></td>
+                                </tr>
+                            <?php } ?>
+                        </table>
+                    </td>
+                    <td style="width: 140px;" class="text-center">
+                        <?php if ($this->comites[$i]['boton'] == 'A') { ?>
+                            <button value="<?php echo $this->comites[$i]['comId']; ?>" class="btn btn-primary" id="btnPlanMejoramiento"><span class="glyphicon glyphicon-list-alt"></span></button>
+                        <?php } ?>
+                        <button value="<?php echo $this->comites[$i]['comId']; ?>" class="btn btn-primary" id="btnInformacionComite"><span class="glyphicon glyphicon-user"></span></button>
+                    </td>
+                </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example2').dataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            oLanguage: {
+                "sSearch": "Buscar:"
+            }
+        });
+    });
+</script>
+

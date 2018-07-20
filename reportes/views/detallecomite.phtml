@@ -1,0 +1,88 @@
+<!-- general form elements -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Informacion comite de evaluacion</h3>
+    </div>
+    <div class="box-body">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Fecha Comite</label>
+            <input type="text" placeholder="yyyy/mm/dd" value="<?php echo $this->datos[0]['comFechaComite']; ?>" id="txtFechallamado" class="form-control" disabled>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Hora Comite</label>
+            <div class="input-group">
+                <input type="text" name="txtHora" value="<?php echo $this->datos[0]['comHoraComite']; ?>" class="form-control" disabled>
+                <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Lugar Comite</label>
+            <input type="text" class="form-control" value="<?php echo $this->datos[0]['comLugar']; ?>" disabled>
+        </div>
+        <div id="tablaInstructores">
+            <label class="form-control" style="margin-bottom: 20px;">
+                Instructores
+            </label>
+            <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                        <?php if ($this->usuarios[$i]['rolNombre'] == 'Instructor') { ?>
+                            <tr>
+                                <td><?php echo $i + 1; ?></td>
+                                <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                                <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                            </tr>
+                        <?php } ?>
+                    <?php endfor; ?>
+                </tbody>
+            </table>
+        </div>
+        <div id="tablaAprendices">
+            <label class="form-control" style="margin-bottom: 20px;">
+                Aprendices
+            </label>
+            <table class="table-bordered table table-condensed table-responsive table-hover" id="example">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i = 0; $i < count($this->usuarios); $i++): ?>
+                        <?php if ($this->usuarios[$i]['rolNombre'] == 'Aprendiz') { ?>
+                            <tr>
+                                <td><?php echo $i + 1; ?></td>
+                                <td><?php echo $this->usuarios[$i]['usuTipoDocu']; ?></td>
+                                <td><?php echo $this->usuarios[$i]['usuDocumento']; ?></td>
+                                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuNombre'])); ?></td>
+                                <td><?php echo ucwords(strtolower($this->usuarios[$i]['usuApellido'])); ?></td>
+                            </tr>
+                        <?php } ?>
+                    <?php endfor; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+    </div>
+</div>
+

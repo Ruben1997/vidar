@@ -1,0 +1,7 @@
+<select id="selPrograma2" class="form-control" name="txtPrograma">
+    <option disabled selected>--Seleccione--</option>
+    <?php for ($i = 0; $i < count($this->programas); $i++) { ?>
+        <option value="<?php echo $this->programas[$i]['proId']; ?>"><?php echo $this->programas[$i]['proNombre']; ?></option>
+    <?php } ?>
+</select>
+

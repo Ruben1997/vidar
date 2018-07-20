@@ -8,11 +8,12 @@ define('DEFAULT_METHOD', 'index');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'vidar');
+define('DB_NAME', 'bdvidar');
 define('DB_CHAR', 'utf8');
 define('NAME_APP', 'Vidar');
 define('HASH_KEY', '53bf025929f1f');
 define('SESSION_TIME', 60);
+define('SUB_NAME', 'Vidar');
 
 $timepicker = "<link href='" . COMMON . "timepicker/clockface.css' rel='stylesheet'>
         <link href='" . COMMON . "timepicker/calendarpicker.css' rel='stylesheet'>        
